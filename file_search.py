@@ -5,6 +5,7 @@ import json
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 from pydantic import BaseModel
 from pprint import pformat
+import traceback
 
 from readProp import *
 
@@ -58,16 +59,23 @@ def list_stores():
 
 def search(vector_store_names: List[str], user_input : str):
     """Search inside the openai vector store """
+         # Set ranking options, including a score threshold (hypothetical)
+    ranking_options = {
+        "score_threshold": 0.9,  # Set your score threshold here
+        "relevance": True,
+        "date": False
+        }
     try:
         # Create an assistant with file search enabled
         assistant = client.beta.assistants.create(
             name="File Chat Assistant",
             instructions="You are a helpful assistant. Use the provided vector stores to answer user questions.",
             model="gpt-4o",
-            tools=[{"type": "file_search"}],
+            tools=[{"type": "file_search", "file_search": { "max_num_results" : 1 ,"ranking_options" : { "score_threshold": 0.9 }}}],
             tool_resources={
                 "file_search": {
-                    "vector_store_ids": vector_store_names
+                    "vector_store_ids": vector_store_names,
+                  
                 }
             }
         )
@@ -89,6 +97,8 @@ def search(vector_store_names: List[str], user_input : str):
                 thread_id=thread.id,
                 assistant_id=assistant.id
         )
+        
+   
 
         # Wait for the run to complete
         while run.status != "completed":
@@ -98,8 +108,9 @@ def search(vector_store_names: List[str], user_input : str):
             messages = client.beta.threads.messages.list(thread_id=thread.id)
             for message in messages.data:
                 if message.role == "assistant":
-                    print(f"Assistant: {message.content[0].text.value}")
-                    break
+                    if len(message.content) > 0 :
+                      print(f"Assistant: {message.content[0].text.value}")
+                      break
 
             # Retrieve and display the run step details
             run_steps = client.beta.threads.runs.steps.list(thread_id=thread.id, run_id=run.id)
@@ -107,7 +118,7 @@ def search(vector_store_names: List[str], user_input : str):
                 if step.type == "tool_calls":
                     for tool_call in step.step_details.tool_calls:
                         if tool_call.type == "file_search":
-                            run_step = client.beta.threads.runs.steps.retrieve(
+                            run_step = client.beta.threads.runs.steps.retrieve (
                                 thread_id=thread.id,
                                 run_id=run.id,
                                 step_id=step.id,
@@ -119,3 +130,4 @@ def search(vector_store_names: List[str], user_input : str):
 
     except Exception as e:
         print(f"An error occurred: {str(e)}")
+        traceback.print_exc()  # Prints the full traceback
