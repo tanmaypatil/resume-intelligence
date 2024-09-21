@@ -1,6 +1,9 @@
+import os
 import fitz  # PyMuPDF for PDF handling
 from PIL import Image
 import io
+from dotenv import load_dotenv
+import file_search
 
 # 1. search for text inside pdf 
 # 2. annotate text create another pdf 
@@ -44,3 +47,16 @@ def search_annotate(pdf_file,search_text):
   doc.save("highlighted_output.pdf")
   doc.close() 
   return doc
+
+# Compare resumes
+# 1.upload both resumes to vector store
+# 2.run query 
+# 3.get output 
+def compare_resume(resume1,resume2,search_query):
+    load_dotenv()
+    vector_store_name = os.getenv("resume_compare")
+    print(f"vector store name {vector_store_name}")
+    file_list = [resume1,resume2]
+    file_search.add_files(vector_store_name,file_list)
+    return None
+

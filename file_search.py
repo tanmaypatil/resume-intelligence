@@ -27,7 +27,7 @@ def add_files(vector_store_name: str, files: List[str]):
     try:
         # Create a new vector store
         vector_store = client.beta.vector_stores.create(name=vector_store_name)
-        logging.info(f"Created vector store: {vector_store_name}")
+        logging.info(f"Created vector store: {vector_store_name}  id :{vector_store.id}")
 
         # Upload files and add them to the vector store
         file_ids = []
@@ -45,11 +45,11 @@ def add_files(vector_store_name: str, files: List[str]):
         logging.info(f"Added {len(file_ids)} files to the vector store.")
         logging.info(f"File batch status: {file_batch.status}")
         logging.debug(f"File counts: {file_batch.file_counts}")
-
+        return vector_store.id
     except Exception as e:
         logging.error(f"An error occurred: {str(e)}", err=True)
-        
-
+        return None      
+   
 def list_stores():
     vector_stores = client.beta.vector_stores.list()
     print(vector_stores)
