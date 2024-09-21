@@ -2,7 +2,10 @@
 from completion import generate_completion
 from file_search import *
 from pdf_totext import extract_text_from_pdf
+from dotenv import load_dotenv
+import os
 
+load_dotenv()
 
 def test_completion():
   messages=[
@@ -37,6 +40,13 @@ def test_searchstore():
   # store_id is retrieved 
   store_id = 'vs_Rxi64D4Z3ntBfcJDqrPPhgpP'
   search([store_id],search_text)
+
+def test_env():
+      print('123')
+      v_id = os.getenv('vector_store_id')
+      print(v_id)
+      assert v_id != None
+      
       
       
   

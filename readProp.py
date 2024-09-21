@@ -1,11 +1,8 @@
 from jproperties import Properties
+import os 
+from dotenv import load_dotenv
 
 def readProperties(key):
-   import sys 
-   sys.path.append(".")
-   
-   configs = Properties()
-   with open("app.properties", 'rb') as config_file:
-     configs.load(config_file)
-   #print(f'Property Value: {configs.get(key).data}') 
-   return configs.get(key).data
+  load_dotenv()
+  return os.getenv(key)
+      
