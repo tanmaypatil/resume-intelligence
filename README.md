@@ -1,2 +1,2 @@
 # notes-search
-note search application using openai file search
+Resume search using openai file search
