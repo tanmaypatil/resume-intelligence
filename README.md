@@ -1,2 +1,2 @@
 # resume-search-intelligence
-Resume search using openai file search
+Resume search natural queries .  I use openai RAG vector store to index and store resume.
