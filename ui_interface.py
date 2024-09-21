@@ -10,7 +10,6 @@ def pdf_to_image_task(pdf_file):
     # check if pdf file is provided
     if not pdf_file:
          raise ValueError("No pdf file provided , please upload the same")
-    print(f"prompt is {prompt} ")
     # Open the PDF from the uploaded file
     doc = fitz.open(pdf_file.name)
     images = []
