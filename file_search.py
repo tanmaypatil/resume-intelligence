@@ -14,7 +14,8 @@ client = OpenAI(api_key=key)
 
 def pretty_print_pydantic(obj):
     if isinstance(obj, BaseModel):
-        return pformat(obj.dict(), indent=2, width=120)
+        logging.info(f"object instance {obj.model_fields.keys()}")
+        return pformat(obj.model_dump(), indent=2, width=120)
     elif isinstance(obj, list):
         return pformat([pretty_print_pydantic(item) for item in obj], indent=2, width=120)
     elif isinstance(obj, dict):
@@ -68,7 +69,7 @@ def search(vector_store_names: List[str], user_input : str):
             name="File Chat Assistant",
             instructions="You are a helpful assistant. Use the provided vector stores to answer user questions.",
             model="gpt-4o",
-            tools=[{"type": "file_search", "file_search": { "max_num_results" : 1 ,"ranking_options" : { "score_threshold": 0.9 }}}],
+            tools=[{"type": "file_search", "file_search": { "max_num_results" : 1 ,"ranking_options" : { "score_threshold": 0.85 }}}],
             tool_resources={
                 "file_search": {
                     "vector_store_ids": vector_store_names,           
@@ -77,7 +78,7 @@ def search(vector_store_names: List[str], user_input : str):
         )
         # Create a thread
         thread = client.beta.threads.create()
-        print(f"search started. with prompt {user_input}")  
+        logging.info(f"search started. with prompt {user_input}")  
             # Add the user's message to the thread
         client.beta.threads.messages.create(
                 thread_id=thread.id,
@@ -115,9 +116,13 @@ def search(vector_store_names: List[str], user_input : str):
                                 step_id=step.id,
                                 include=["step_details.tool_calls[*].file_search.results[*].content"]
                             )
-                            print("\nFile Search Results:")
-                            
-                            print(pretty_print_pydantic(run_step.step_details.tool_calls[0].file_search.results))
+                            logging.info("\nFile Search Results:")
+                            logging.info(pretty_print_pydantic(run_step.step_details.tool_calls[0].file_search.results))
+                            # Print field names (keys) using .model_fields.keys()
+                            #logging.info(f"\nModel Fields (Keys): {run_step.step_details.tool_calls[0].file_search.results[0].model_fields.keys()}")
+                            if run_step.step_details.tool_calls[0].file_search.results[0].content and len(run_step.step_details.tool_calls[0].file_search.results[0].content) > 0 :
+                              text = run_step.step_details.tool_calls[0].file_search.results[0].content[0].text
+                              logging.info(f"Chunk 30 characters {text[0:30]}")
 
         logging.info(f"output is {assistant_output}")
         return assistant_output
