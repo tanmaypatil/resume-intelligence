@@ -1,5 +1,5 @@
 # resume-search-intelligence
-Resume search natural queries .  I use openai RAG vector store to index and store resume.
+Resume search using natural queries .  Demo application using openai RAG api and opensource VLM model to do resume analysis.
 
 ## Objective 
 Objective of resume intelligence would be to support natural language query on a set of resumes .
