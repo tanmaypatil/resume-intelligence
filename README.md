@@ -9,6 +9,9 @@ Some of the query , which it should allow you to fire are
 1. Does any of the candidates have team management experience ? 
 2. Who has more experience in java and docker in set of resumes ?
 
+## Demo
+![Demo](demo.gif)
+
 ## Approaches
 Here i use RAG approaches 
 1. RAG - with openai
