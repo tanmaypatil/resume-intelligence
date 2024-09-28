@@ -80,7 +80,7 @@ def search(vector_store_names: List[str], user_input : str):
             name="File Chat Assistant",
             instructions= instructions,
             model="gpt-4o",
-            tools=[{"type": "file_search", "file_search": { "max_num_results" : 1 ,"ranking_options" : { "score_threshold": 0.85 }}}],
+            tools=[{"type": "file_search", "file_search": { "max_num_results" : 3 ,"ranking_options" : { "score_threshold": 0. }}}],
             tool_resources={
                 "file_search": {
                     "vector_store_ids": vector_store_names,           
