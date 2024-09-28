@@ -24,7 +24,7 @@ This is a straightforward approach .I use openai apis to create a vector store a
 
 Refer to this code in file_search api : 
 ```
-    def search(vector_store_names: List[str], user_input : str):
+def search(vector_store_names: List[str], user_input : str):
     assistant_output = []
     """Search inside the openai vector store """
     # Set ranking options, including a score threshold (hypothetical)
