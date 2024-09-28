@@ -14,7 +14,7 @@ Here i use RAG approaches
 1. RAG - with openai
    openai has assistant api , which has option of storing the vector representation of document and searching against the same .
    Refer here for documentation [File Search](https://platform.openai.com/docs/assistants/tools/file-search)
-   On how to use file search api , i referred simon wilson's excellent blog [blog](https://simonwillison.net/2024/Aug/30/openai-file-search/) and gist he made [sample code](https://gist.github.com/simonw/97e29b86540fcc627da4984daf5b7f9f)
+   On how to use file search api , i referred simon wilson's excellent [blog](https://simonwillison.net/2024/Aug/30/openai-file-search/) and gist he made [sample code](https://gist.github.com/simonw/97e29b86540fcc627da4984daf5b7f9f)
 
 2. RAG - with opensource colpali
    This is approach of using VLM . I plan to use Byaldi which internally uses colpali
