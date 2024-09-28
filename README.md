@@ -10,6 +10,13 @@ Some of the query , which it should allow you to fire are
 2. Who has more experience in java and docker in set of resumes ?
 
 ## How to run 
+  This example can be run on local windows machine/laptop. 
+  It does not have special requirement in terms of GPU 
+  need to key in openai key in .env file which is present in root of the folder 
+
+```
+   OPENAI_KEY=<substitute your key>
+``` 
 ```bash
    python ui_resume_compare.py
 ```
