@@ -9,6 +9,10 @@ Some of the query , which it should allow you to fire are
 1. Does any of the candidates have team management experience ? 
 2. Who has more experience in java and docker in set of resumes ?
 
+## How to run 
+```bash
+   python ui_resume_compare.py
+```
 ## Demo
 ![Demo](demo.gif)
 
@@ -29,7 +33,7 @@ Here i use RAG approaches
 This is a straightforward approach .I use openai apis to create a vector store and add all pdf documents to vector store . post that create a assistant and attach vector store to assistant 
 
 Refer to this code in file_search api : 
-```
+```python
 def search(vector_store_names: List[str], user_input : str):
     assistant_output = []
     """Search inside the openai vector store """
