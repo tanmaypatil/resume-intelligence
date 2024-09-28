@@ -72,7 +72,6 @@ def search(vector_store_names: List[str], user_input : str):
           1. **Technical Skills**: Focus on relevant programming languages, frameworks, tools, and certifications (e.g., Python, Java, AWS, Docker). Highlight these clearly.
           2. **Job Match**: Compare the resume with provided job descriptions. Focus on matching key technologies and job experience, and note areas where the candidate doesn’t meet the requirements.
           3. **Projects & Experience**: Prioritize large-scale projects or leadership roles in tech teams. Identify open-source contributions or significant technical achievements.
-          4. **Tool Use**: Use the vector store provided and file search tool to retrieve resumes based on a score threshold of 0.85. Rank results by relevance to the key criteria.
           """
 
         # Create an assistant with file search enabled
