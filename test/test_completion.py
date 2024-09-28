@@ -50,13 +50,13 @@ def test_env():
 
 def test_create_store():
       store_name = 'resume-intelligence'
-      v_store_id = create_vector_store(store_name)
-      print(v_store_id)
-      assert v_store_id != None
+      v_store = create_vector_store(store_name)
+      print(v_store.id)
+      assert v_store.id != None
       
 def test_list_store():
       store_name = 'resume-intelligence'
-      store_len = search_vector_store(store_name)
+      store_len,_ = search_vector_store(store_name)
       assert store_len == 1
       
       

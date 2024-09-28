@@ -22,6 +22,8 @@ def pretty_print_pydantic(obj):
         return pformat({k: pretty_print_pydantic(v) for k, v in obj.items()}, indent=2, width=120)
     else:
         return repr(obj)
+    
+
 
 def add_files(vector_store_name: str, files: List[str]):
     """Create a new vector store and add files to it."""
@@ -62,12 +64,21 @@ def search(vector_store_names: List[str], user_input : str):
     assistant_output = []
     """Search inside the openai vector store """
          # Set ranking options, including a score threshold (hypothetical)
-    logging.info(f"search prompt is {user_input}")
+    logging.info(f"vector search search prompt is {user_input}")
+    logging.info(f"vector search , store names is {vector_store_names}")
     try:
+        instructions = """
+          You are an assistant specializing in scanning and analyzing technology resumes. Your goal is to identify key technical skills, experience, and alignment with job descriptions.
+          1. **Technical Skills**: Focus on relevant programming languages, frameworks, tools, and certifications (e.g., Python, Java, AWS, Docker). Highlight these clearly.
+          2. **Job Match**: Compare the resume with provided job descriptions. Focus on matching key technologies and job experience, and note areas where the candidate doesn’t meet the requirements.
+          3. **Projects & Experience**: Prioritize large-scale projects or leadership roles in tech teams. Identify open-source contributions or significant technical achievements.
+          4. **Tool Use**: Use the vector store provided and file search tool to retrieve resumes based on a score threshold of 0.85. Rank results by relevance to the key criteria.
+          """
+
         # Create an assistant with file search enabled
         assistant = client.beta.assistants.create(
             name="File Chat Assistant",
-            instructions="You are a helpful assistant. Use the provided vector stores to answer user questions.",
+            instructions= instructions,
             model="gpt-4o",
             tools=[{"type": "file_search", "file_search": { "max_num_results" : 1 ,"ranking_options" : { "score_threshold": 0.85 }}}],
             tool_resources={
@@ -120,7 +131,9 @@ def search(vector_store_names: List[str], user_input : str):
                             logging.info(pretty_print_pydantic(run_step.step_details.tool_calls[0].file_search.results))
                             # Print field names (keys) using .model_fields.keys()
                             #logging.info(f"\nModel Fields (Keys): {run_step.step_details.tool_calls[0].file_search.results[0].model_fields.keys()}")
-                            if run_step.step_details.tool_calls[0].file_search.results[0].content and len(run_step.step_details.tool_calls[0].file_search.results[0].content) > 0 :
+                            if (run_step.step_details.tool_calls[0].file_search.results 
+                              and run_step.step_details.tool_calls[0].file_search.results[0].content
+                              and len(run_step.step_details.tool_calls[0].file_search.results[0].content) > 0 ):
                               text = run_step.step_details.tool_calls[0].file_search.results[0].content[0].text
                               logging.info(f"Chunk 30 characters {text[0:30]}")
 

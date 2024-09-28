@@ -1,10 +1,40 @@
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from dotenv import load_dotenv
 import fitz  # PyMuPDF for PDF handling
 import gradio as gr
 from PIL import Image
 import io
-from file_search import search
+import os
+from file_search import search,add_files
 import pdf_util
+from vector_store_util import *
+import logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
+def compare_resumes(resume1,resume2,prompt):
+    # index resume1 and resume2
+    result = ""
+    file_list = [resume1,resume2]
+    # create vector store 
+    load_dotenv()
+    vector_store_str = os.getenv("vector_store_resume")
+    # check if store exists , if not skip creation 
+    store_len,store_id,vector_store = search_vector_store(vector_store_str)
+    logging.info(f"store_len {store_len} for {vector_store_str}")
+    if store_len == 0:
+      vector_store = create_vector_store(vector_store_str)
+      logging.info(f"create vector store {vector_store.name}:{vector_store.id}")
+    # index file into vector store
+    logging.info(f"index into vector store {file_list} ")
+    store_id = add_files_instore(vector_store,file_list)
+    logging.info(f"post creating index  {store_id}")
+    # search for comparative analysis
+    assistant_output = search([store_id],prompt)
+    result = "\n".join(assistant_output)
+    # convert resume 1 and resume 2 for displaying as image 
+    image_gallery1 = pdf_to_image_task(resume1)
+    image_gallery2 = pdf_to_image_task(resume2)
+    return  image_gallery1 , image_gallery2 ,result 
 
 # pdf upload task
 def pdf_to_image_task(pdf_file):
@@ -24,33 +54,6 @@ def pdf_to_image_task(pdf_file):
         images.append(img)
     return images 
 
-def search_vector_task(prompt):
-    # Query vector store 
-    store_id = 'vs_Rxi64D4Z3ntBfcJDqrPPhgpP'
-    assistant_output = search([store_id],prompt)
-    assistant_message = "\n".join(assistant_output)
-    
-    return assistant_message
-    
-# Function to convert a page of the PDF into an image
-def pdf_to_images(pdf_file,prompt):
-    with ThreadPoolExecutor() as executor:
-        future_to_task = {
-        executor.submit(pdf_to_image_task,pdf_file): "pdf_to_image_task",
-        executor.submit(search_vector_task,prompt): "search_vector_task",
-        }
-        # Wait for both tasks to complete before returning the results
-        for future in as_completed(future_to_task):
-            task_name = future_to_task[future] 
-            result = future.result()  # Retrieve the result of each task
-            if ( task_name == 'pdf_to_image_task'):
-                images = result
-            else :
-                assistant_message = result
- 
-    # Return the images (Gradio will display them)
-    return images,assistant_message
-
 # Upload resume 1
 pdf_resume1 = gr.File(file_types=['.pdf'], label="Upload PDF")
 # Upload resume 2
@@ -60,10 +63,10 @@ prompt = gr.Textbox(
             label="prompt",
             info="Enter search query",
             lines=3,
-            value="Who has more ",
+            value="Between Arti Patil and Tanmay Patil who has more experience in teaching a german language ",
         )
 output_gallery1 = gr.Gallery(type="pil", label="Resume 1")
-output_gallery2 = gr.Gallery(type="pil", label="Resume1")
+output_gallery2 = gr.Gallery(type="pil", label="Resume 2")
 query_result = gr.Textbox(
             label="result",
             info="output of search",
@@ -74,7 +77,7 @@ query_result = gr.Textbox(
 interface = gr.Interface(
     fn=compare_resumes,  # Function to process and compare resumes
     inputs=[pdf_resume1,pdf_resume2,prompt],  # Input widget to upload the PDF
-    outputs=[output_gallery1,output_gallery2,query_result],  # Output as images
+    outputs=[output_gallery1,output_gallery2,query_result],  # Output as images amd result
     title="Resume intelligence",
     description="Upload 2 resume's in PDF and we will compare 2 resumes"
 )
