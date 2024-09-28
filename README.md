@@ -23,6 +23,7 @@ Here i use RAG approaches
    This is approach of using VLM . I plan to use Byaldi which internally uses colpali
    Refer to notebook , which has sample code [chat with pdf using byaldi
    ](https://github.com/AnswerDotAI/byaldi/blob/main/examples/chat_with_your_pdf.ipynb)
+   I am yet to implement this.
 
 ## Using openai file search 
 This is a straightforward approach .I use openai apis to create a vector store and add all pdf documents to vector store . post that create a assistant and attach vector store to assistant 
