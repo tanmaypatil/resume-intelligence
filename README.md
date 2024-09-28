@@ -1,4 +1,4 @@
-# resume-search-intelligence
+# resume search intelligence
 Resume search using natural queries .  Demo application using openai RAG api and opensource VLM model to do resume analysis.
 
 ## Objective 
