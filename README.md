@@ -12,8 +12,9 @@ Some of the query , which it should allow you to fire are
 ## How to run 
   This example can be run on local windows machine/laptop. 
   It does not have special requirement in terms of GPU 
-  need to key in openai key in .env file which is present in root of the folder
-  You need to select 2 resumes from UI application , type in the query in prompt box. 
+  need to key in openai key in .env file which is present in root of the folder.  
+  You need to select 2 resumes from UI application , type in the query in prompt box.  
+  and hit submit.
 
 ```
    OPENAI_KEY=<substitute your key>
