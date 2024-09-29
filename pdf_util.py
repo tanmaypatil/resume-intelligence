@@ -59,4 +59,26 @@ def compare_resume(resume1,resume2,search_query):
     file_list = [resume1,resume2]
     file_search.add_files(vector_store_name,file_list)
     return None
+  
+
+def concatenate_pdfs(pdf1,pdf2):
+    output_file = "pdf_concat.pdf"
+    pdf_files = [ pdf1,pdf2]
+    # Create a new PDF document
+    output_pdf = fitz.open()
+
+    for pdf_file in pdf_files:
+        # Open the current PDF
+        pdf_document = fitz.open(pdf_file)
+
+        # Insert the entire PDF into the output PDF
+        output_pdf.insert_pdf(pdf_document)
+
+        # Close the current PDF
+        pdf_document.close()
+
+    # Save the concatenated PDF to a file
+    output_pdf.save(output_file)
+    # return output file
+    return output_file
 

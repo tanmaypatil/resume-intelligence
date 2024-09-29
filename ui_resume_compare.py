@@ -6,7 +6,7 @@ from PIL import Image
 import io
 import os
 from file_search import search,add_files
-import pdf_util
+from pdf_util import * 
 from vector_store_util import *
 import logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -24,6 +24,11 @@ def compare_resumes(resume1,resume2,prompt):
     if store_len == 0:
       vector_store = create_vector_store(vector_store_str)
       logging.info(f"create vector store {vector_store.name}:{vector_store.id}")
+    # concatenate resumes - openapi requires single file
+    logging.info(f"concatenating the resumes {resume1} {resume2}")
+    concat_pdf =concatenate_pdfs(resume1,resume2)
+    logging.info(f"concatenated resume {concat_pdf}")
+    file_list = [concat_pdf]
     # index file into vector store
     logging.info(f"index into vector store {file_list} ")
     store_id = add_files_instore(vector_store,file_list)
