@@ -5,8 +5,12 @@ from pdf_totext import extract_text_from_pdf
 from dotenv import load_dotenv
 from vector_store_util import * 
 import os
+from claudette import * 
 
 load_dotenv()
+os.environ["ANTHROPIC_API_KEY"] = os.getenv("ANTHROPIC_KEY")
+
+
 
 def test_completion():
   messages=[
@@ -58,6 +62,11 @@ def test_list_store():
       store_name = 'resume-intelligence'
       store_len,_ = search_vector_store(store_name)
       assert store_len == 1
+
+def test_claude():
+      assert models != None
+      print(models[1])
+      
       
       
       
