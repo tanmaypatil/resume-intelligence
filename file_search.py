@@ -69,9 +69,11 @@ def search(vector_store_names: List[str], user_input : str):
     try:
         instructions = """
           You are an assistant specializing in scanning and analyzing technology resumes. Your goal is to identify key technical skills, experience, and alignment with job descriptions.
-          1. **Technical Skills**: Focus on relevant programming languages, frameworks, tools, and certifications (e.g., Python, Java, AWS, Docker). Highlight these clearly.
-          2. **Job Match**: Compare the resume with provided job descriptions. Focus on matching key technologies and job experience, and note areas where the candidate doesn’t meet the requirements.
-          3. **Projects & Experience**: Prioritize large-scale projects or leadership roles in tech teams. Identify open-source contributions or significant technical achievements.
+          1. ** Format of resumes** : You will get a single file pdf_concat.pdf . This would be a file which has resume of multiple candidates 
+            It will have candidates name at the top and then chronological experience below
+          2. **Technical Skills**: Focus on relevant programming languages, frameworks, tools, and certifications (e.g., Python, Java, AWS, Docker). Highlight these clearly.
+          3. **Job Match**: Compare the resume with provided job descriptions. Focus on matching key technologies and job experience, and note areas where the candidate doesn’t meet the requirements.
+          4. **Projects & Experience**: Prioritize large-scale projects or leadership roles in tech teams. Identify open-source contributions or significant technical achievements.
           """
 
         # Create an assistant with file search enabled
