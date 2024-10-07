@@ -7,8 +7,7 @@ from vector_store_util import *
 import os
 from claudette import * 
 
-load_dotenv()
-os.environ["ANTHROPIC_API_KEY"] = os.getenv("ANTHROPIC_KEY")
+
 
 
 
@@ -66,6 +65,16 @@ def test_list_store():
 def test_claude():
       assert models != None
       print(models[1])
+
+def test_chat():
+      print(models[1])
+      load_dotenv()
+      print(f"api key {os.getenv("ANTHROPIC_KEY3")}")
+      os.environ["ANTHROPIC_API_KEY"] = os.getenv("ANTHROPIC_KEY3")
+      chat = Chat(models[1])
+      query = "what is tanmay patils role in finastra"
+      my_bytes = b'\x89PNG\r\n\x1a\n\x00\x00'
+      chat([my_bytes,query])
       
       
       
