@@ -65,16 +65,28 @@ def test_list_store():
 def test_claude():
       assert models != None
       print(models[1])
+      
+def create_test_image():
+    from PIL import Image
+    import io
+
+    # Create a small, valid PNG image
+    img = Image.new('RGB', (50, 50), color = 'red')
+    img_byte_arr = io.BytesIO()
+    img.save(img_byte_arr, format='PNG')
+    return img_byte_arr.getvalue()
 
 def test_chat():
       print(models[1])
+      img_bytes = create_test_image()
       load_dotenv()
-      print(f"api key {os.getenv("ANTHROPIC_KEY3")}")
+      print(f"api key {os.getenv('ANTHROPIC_KEY3')}")
       os.environ["ANTHROPIC_API_KEY"] = os.getenv("ANTHROPIC_KEY3")
       chat = Chat(models[1])
       query = "what is tanmay patils role in finastra"
       my_bytes = b'\x89PNG\r\n\x1a\n\x00\x00'
-      chat([my_bytes,query])
+      ans = chat([img_bytes,query])
+      print(ans)
       
       
       
