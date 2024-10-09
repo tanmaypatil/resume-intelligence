@@ -84,7 +84,6 @@ def test_chat():
       os.environ["ANTHROPIC_API_KEY"] = os.getenv("ANTHROPIC_KEY3")
       chat = Chat(models[1])
       query = "what is tanmay patils role in finastra"
-      my_bytes = b'\x89PNG\r\n\x1a\n\x00\x00'
       ans = chat([img_bytes,query])
       print(ans)
       
