@@ -5,6 +5,8 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, Tabl
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib.units import inch
+from format_util import *
+    
 
 def generate_resume_pdf(output_filename):
     # Register custom font (make sure the font file is in the correct location)
@@ -31,11 +33,11 @@ def generate_resume_pdf(output_filename):
     elements.append(Spacer(1, 12))
 
     # Contact Information
-    contact_info = [
-        ["tany.patil77@gmail.com", "medium.com/@tanmay_patil"],
-        ["github.com/tanmaypatil", "Pune"],
-        ["91-9545027869", ""]
-    ]
+    with open('.\\candidate\\candidate_info.json', 'r') as file:
+      json_data = json.load(file)
+
+    contact_info = transform_contact_json_to_list(json_data)
+
     contact_table = Table(contact_info, colWidths=[3*inch, 3*inch])
     contact_table.setStyle(TableStyle([
         ('FONTNAME', (0,0), (-1,-1), 'Roboto'),
