@@ -90,7 +90,7 @@ def generate_resume(description, use_turbo=False):
         use_turbo (bool): If True, uses GPT-4-turbo-preview, otherwise uses GPT-4-0
     """
     try:
-        model = "gpt-4-turbo-preview" if use_turbo else "gpt-4o"
+        model = "gpt-4o"
         
         response = client.chat.completions.create(
             model=model,
@@ -123,7 +123,7 @@ They have worked in 2 companies and is currently working as a Senior Software En
 """
 
 # Using GPT-4-0 (May 2024 version)
-resume = generate_resume(description, use_turbo=False)
+resume = generate_resume(description)
 print("\nGPT-4-0 Generated Resume:")
 print(json.dumps(resume, indent=2))
 
