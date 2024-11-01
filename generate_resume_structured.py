@@ -10,20 +10,44 @@ API_KEY = os.getenv("OPENAI_API_KEY")
 client = OpenAI(api_key=API_KEY)
 
 # Define the structure for the resume
-functions = [
+functions =[
     {
         "name": "generate_resume",
         "description": "Generate a structured resume from candidate description",
         "parameters": {
             "type": "object",
             "properties": {
-                "name": {
-                    "type": "string",
-                    "description": "Full name of the candidate"
-                },
-                "currentRole": {
-                    "type": "string",
-                    "description": "Current job title"
+                "personalDetails": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "type": "string",
+                            "description": "full name of the candidate"
+                        },
+                        "title": {
+                            "type": "string",
+                            "description": "designation within organisation e.g director of engineering"
+                        },
+                        "email": {
+                            "type": "string",
+                            "description": "email id of candidate"
+                        },
+                        "personalUrls": {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "description": "personal website or blogsite or link to personal github page"
+                            }
+                        },
+                        "city": {
+                            "type": "string",
+                            "description": "city in which the person stays currently"
+                        },
+                        "phone": {
+                            "type": "string",
+                            "description": "phone number of the candidate ,eg .91-9545037689"
+                        }
+                    }
                 },
                 "experience": {
                     "type": "array",
@@ -50,7 +74,11 @@ functions = [
                                 "description": "Key achievements and responsibilities"
                             }
                         },
-                        "required": ["company", "position", "duration"]
+                        "required": [
+                            "company",
+                            "position",
+                            "duration"
+                        ]
                     }
                 },
                 "skills": {
@@ -69,14 +97,21 @@ functions = [
                             }
                         }
                     },
-                    "required": ["technical"]
+                    "required": [
+                        "technical"
+                    ]
                 },
                 "yearsOfExperience": {
                     "type": "integer",
                     "description": "Total years of professional experience"
                 }
             },
-            "required": ["name", "currentRole", "experience", "skills", "yearsOfExperience"]
+            "required": [
+                "personalDetails",
+                "experience",
+                "skills",
+                "yearsOfExperience"
+            ]
         }
     }
 ]
