@@ -8,7 +8,7 @@ from reportlab.lib.units import inch
 from format_util import *
     
 
-def generate_resume_pdf(output_filename):
+def render_resume_pdf(output_filename,contact_info):
     # Register custom font (make sure the font file is in the correct location)
     pdfmetrics.registerFont(TTFont('Roboto', 'Roboto-Regular.ttf'))
 
@@ -33,10 +33,10 @@ def generate_resume_pdf(output_filename):
     elements.append(Spacer(1, 12))
 
     # Contact Information
-    with open('.\\candidate\\candidate_info.json', 'r') as file:
-      json_data = json.load(file)
+    # with open('.\\candidate\\candidate_info.json', 'r') as file:
+    #  json_data = json.load(file)
 
-    contact_info = transform_contact_json_to_list(json_data)
+    #contact_info = transform_contact_json_to_list(json_data)
 
     contact_table = Table(contact_info, colWidths=[3*inch, 3*inch])
     contact_table.setStyle(TableStyle([
@@ -97,5 +97,3 @@ def generate_resume_pdf(output_filename):
     # Build the PDF
     doc.build(elements)
 
-# Call the function
-generate_resume_pdf('tanmay_patil_enhanced_resume.pdf')

@@ -1,0 +1,64 @@
+{
+    "personalDetails": {
+      "name": "Rahul Sharma",
+      "title": "Senior DevOps Engineer",
+      "email": "rahul.sharma@example.com",
+      "personalUrls": [
+        "https://github.com/rahulsharma",
+        "https://www.linkedin.com/in/rahulsharma"
+      ],
+      "city": "Bengaluru",
+      "phone": "91-9876543210"
+    },
+    "experience": [
+      {
+        "company": "Tech Solutions Ltd.",
+        "position": "DevOps Engineer",
+        "duration": "2019 - Present",
+        "achievements": [
+          "Implemented Kubernetes clusters to improve deployment efficiency by 30%",
+          "Led a team of 4 to automate infrastructure using Terraform, reducing provisioning time by 40%",
+          "Migrated legacy applications to AWS cloud, enhancing scalability and reliability"
+        ]
+      },
+      {
+        "company": "Global IT Services",
+        "position": "System Administrator",
+        "duration": "2015 - 2019",
+        "achievements": [
+          "Managed over 200 Linux and Unix servers ensuring 99.9% uptime",
+          "Automated routine tasks using shell scripting, reducing manual intervention by 50%",
+          "Collaborated with the development team to streamline software deployment processes"
+        ]
+      },
+      {
+        "company": "Innovative Solutions Inc.",
+        "position": "Junior System Administrator",
+        "duration": "2011 - 2015",
+        "achievements": [
+          "Provided support for Unix and Linux systems, improving response time to issues by 20%",
+          "Assisted in the transition from on-premises to cloud solutions using Azure",
+          "Implemented monitoring solutions to enhance system performance and reliability"
+        ]
+      }
+    ],
+    "skills": {
+      "technical": [
+        "Unix",
+        "Linux",
+        "Kubernetes",
+        "AWS",
+        "Azure",
+        "GCP",
+        "Terraform",
+        "Shell Scripting"
+      ],
+      "soft": [
+        "Team Leadership",
+        "Problem Solving",
+        "Communication",
+        "Collaboration"
+      ]
+    },
+    "yearsOfExperience": 12
+  }
