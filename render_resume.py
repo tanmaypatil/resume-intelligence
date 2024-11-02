@@ -32,11 +32,6 @@ def render_resume_pdf(output_filename,contact_info):
     elements.append(Paragraph("DIRECTOR DEVELOPMENT - PAYMENTS", styles['Heading']))
     elements.append(Spacer(1, 12))
 
-    # Contact Information
-    # with open('.\\candidate\\candidate_info.json', 'r') as file:
-    #  json_data = json.load(file)
-
-    #contact_info = transform_contact_json_to_list(json_data)
 
     contact_table = Table(contact_info, colWidths=[3*inch, 3*inch])
     contact_table.setStyle(TableStyle([

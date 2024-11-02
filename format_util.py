@@ -54,6 +54,7 @@ def extract_personal_details(json_data):
     urls = personal_details.get("personalUrls", [])
     city = personal_details.get("city", "")
     phone = personal_details.get("phone", "")
+    name = personal_details.get("name","")
     
      
     # Create the list structure
@@ -76,5 +77,5 @@ def extract_personal_details(json_data):
     list = [row1, row2, row3]
     
     pprint(list)
-    return list 
+    return list ,email,city,phone ,name
 
