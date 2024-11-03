@@ -60,10 +60,17 @@ class ResumeModel:
         """Get Candidate personal details as required in resume"""
         return self.__personal_details
     
+    def __parse_experience(self,experience):
+      for e in experience:
+        ach = [ ach.join('\n') for ach in e.achievements ] 
+        ()
+    
     def __parse(self):
         # parse summary
         self.__summary = self.__doc.get("summary")
         # parse only technical skills 
         sk = self.__doc.get("skills")
         self.__skills = sk['technical']
+        experience = self._doc.get("experience")
+        self.__parse_experience(experience)
         
