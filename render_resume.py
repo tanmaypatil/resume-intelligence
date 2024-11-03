@@ -45,7 +45,8 @@ def render_resume_pdf(output_filename,resume : ResumeModel):
 
     # Summary
     elements.append(Paragraph("SUMMARY", styles['Heading']))
-    elements.append(Paragraph("Experienced technology manager with a strong focus on technical leadership, architectural pattern recognition, and framework awareness. Specializing in addressing cross-cutting concerns, I have successfully improved the engineering culture related to code reviews and performance optimization, enhancing collaboration and code quality.", styles['Normal']))
+    elements.append(Spacer(1, 12))
+    elements.append(Paragraph(resume.summary, styles['Normal']))
     elements.append(Spacer(1, 12))
 
     # Work Experience
@@ -74,8 +75,8 @@ def render_resume_pdf(output_filename,resume : ResumeModel):
 
     # Skills
     elements.append(Paragraph("SKILLS", styles['Heading']))
-    skills = ["API Design", "Architect", "Open Source Software", "Program and Project Management",
-              "Programming", "Stock Markets", "Banking", "Pre-Sales"]
+    elements.append(Spacer(1, 12))
+    skills = resume.skills
     skill_text = ", ".join(skills)
     elements.append(Paragraph(skill_text, styles['Normal']))
     elements.append(Spacer(1, 12))
