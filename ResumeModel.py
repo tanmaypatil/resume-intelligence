@@ -38,6 +38,8 @@ class ResumeModel:
     
     def __parse_contact(self) -> list[list[str]]:
         self.__personal_details,self.__email,self.__city,self.__phone ,self.__name = extract_personal_details(self.__doc)
+        # make the name to upper case 
+        self.__name.upper()
         
     @property
     def personal_details(self) -> list[list]:

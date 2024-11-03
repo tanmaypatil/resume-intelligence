@@ -17,6 +17,10 @@ functions =[
         "parameters": {
             "type": "object",
             "properties": {
+                "summary" : {
+                    "type" : "string",
+                    "description" : "summary of the candidates professional experience . Shows highlights of capability"
+                },
                 "personalDetails": {
                     "type": "object",
                     "properties": {
@@ -151,62 +155,4 @@ def generate_resume(description, use_turbo=False):
         print(f"Error: {str(e)}")
         return None
 
-# Example usage
-description = """
-The candidate is 27 years old, has 5 years of experience in IT and has experience in Java and Python. 
-They have worked in 2 companies and is currently working as a Senior Software Engineer.
-"""
 
-# Using GPT-4-0 (May 2024 version)
-resume = generate_resume(description)
-print("\nGPT-4-0 Generated Resume:")
-print(json.dumps(resume, indent=2))
-
-# Example output:
-"""
-{
-  "name": "Michael Chen",
-  "currentRole": "Senior Software Engineer",
-  "yearsOfExperience": 5,
-  "experience": [
-    {
-      "company": "TechCorp Solutions",
-      "position": "Senior Software Engineer",
-      "duration": "2023 - Present",
-      "achievements": [
-        "Led development of microservices architecture using Java Spring Boot",
-        "Implemented automated testing pipelines reducing bug detection time by 40%",
-        "Mentored junior developers and conducted architecture design reviews"
-      ]
-    },
-    {
-      "company": "DataSys Technologies",
-      "position": "Software Engineer",
-      "duration": "2019 - 2023",
-      "achievements": [
-        "Developed Python-based data processing pipelines",
-        "Improved system performance by 35% through code optimization",
-        "Collaborated with cross-functional teams on major product releases"
-      ]
-    }
-  ],
-  "skills": {
-    "technical": [
-      "Java",
-      "Python",
-      "Spring Boot",
-      "Microservices",
-      "Docker",
-      "AWS",
-      "Git",
-      "SQL"
-    ],
-    "soft": [
-      "Team Leadership",
-      "Mentoring",
-      "Problem Solving",
-      "Technical Documentation"
-    ]
-  }
-}
-"""

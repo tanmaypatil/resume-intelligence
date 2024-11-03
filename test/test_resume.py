@@ -1,5 +1,6 @@
 from ResumeModel import ResumeModel
 from format_util import * 
+from resume_util import *
 
 def test_json_list():
     with open('.\\prompts_results\\devops_engg.json') as file:
@@ -16,4 +17,9 @@ def test_ResumeModel1():
       assert r.email != None 
       assert r.email == 'rahul.sharma@example.com'
       assert r.name == 'Rahul Sharma'
+
+def test_resume_name():
+    name = 'Alex kumar'
+    formatted_name = format_resume_name(name)
+    print(f"{formatted_name}")
 

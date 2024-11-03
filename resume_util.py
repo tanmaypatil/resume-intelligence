@@ -35,3 +35,10 @@ def resume_search(resume1,resume2,prompt):
     result = "\n".join(assistant_output)
     
     return result 
+  
+  
+def format_resume_name(candidate_name):
+  resume_name = candidate_name
+  resume_name = resume_name.replace(" ","_")
+  resume_name = resume_name + ".pdf"
+  return resume_name

@@ -6,9 +6,10 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib.units import inch
 from format_util import *
+from ResumeModel import *
     
 
-def render_resume_pdf(output_filename,contact_info):
+def render_resume_pdf(output_filename,resume : ResumeModel):
     # Register custom font (make sure the font file is in the correct location)
     pdfmetrics.registerFont(TTFont('Roboto', 'Roboto-Regular.ttf'))
 
@@ -27,13 +28,13 @@ def render_resume_pdf(output_filename,contact_info):
     styles.add(ParagraphStyle(name='CustomNormal', fontName='Roboto', fontSize=10))
 
     # Name and Title
-    elements.append(Paragraph("TANMAY PATIL", styles['Name']))
+    elements.append(Paragraph(resume.name, styles['Name']))
     elements.append(Spacer(1, 12))
-    elements.append(Paragraph("DIRECTOR DEVELOPMENT - PAYMENTS", styles['Heading']))
+    elements.append(Paragraph(resume.title, styles['Heading']))
     elements.append(Spacer(1, 12))
 
 
-    contact_table = Table(contact_info, colWidths=[3*inch, 3*inch])
+    contact_table = Table(resume.personal_details, colWidths=[3*inch, 3*inch])
     contact_table.setStyle(TableStyle([
         ('FONTNAME', (0,0), (-1,-1), 'Roboto'),
         ('FONTSIZE', (0,0), (-1,-1), 9),

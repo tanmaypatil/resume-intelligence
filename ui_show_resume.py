@@ -4,11 +4,12 @@ from generate_resume_structured import *
 from format_util import * 
 from render_resume import *
 from pdf_util import *
+from resume_util import *
 import logging
 from PIL import Image
-from PIL import Image, ImageDraw
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+from ResumeModel import *
 
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 
@@ -46,11 +47,13 @@ def generate_resume_pdf(input_prompt):
             # If it's just a regular string, convert it to JSON
             final_json = json.dumps({"text": resume_json}, indent=2)
             parsed_json = json.loads(final_json)
-    
-      contact_info = extract_personal_details(parsed_json)
-      logging.info(f'generate_Resume_pdf {contact_info}')
-      render_resume_pdf("sample_resume.pdf",contact_info)
-      images= pdf_to_image_task("sample_resume.pdf")
+            
+      resume = ResumeModel(parsed_json)
+      logging.info(f"resume model created for candidate : {resume.name}")
+      resume_name = format_resume_name(resume.name)
+      logging.info(f"resume pdf name : {resume_name}")
+      render_resume_pdf(resume_name,resume)
+      images= pdf_to_image_task(resume_name)
       return images
     
 def get_default_prompt():
