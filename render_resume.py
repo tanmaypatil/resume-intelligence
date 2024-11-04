@@ -51,22 +51,10 @@ def render_resume_pdf(output_filename,resume : ResumeModel):
 
     # Work Experience
     elements.append(Paragraph("WORK EXPERIENCE", styles['Heading']))
-    
-    experience = [
-        ("FINASTRA", "Director of engineering - Pay2go SASS", "2023 - CURRENT",
-         "• Strategic Leadership: Responsible for long-term engineering strategy and vision\n"
-         "• Payments engineering: Handle engineering development for payment rails\n"
-         "• Team Management: Lead 7 to 10 engineering teams (70 to 90 members)"),
-        ("FINASTRA", "Director development - Payments", "2021 - 2023",
-         "• Primary ownership to drive payment engineering team and develop payment engine (GPP-SP)\n"
-         "• Implementing modernization journey of the product to create cloud native, event-based architecture\n"
-         "• Improving the bulk payment application performance"),
-        ("INTELLECT DESIGN ARENA", "Solution Architect - cloud native migration of back office system", "2019 - 2021",
-         "• Domain driven modelling\n"
-         "• Evaluate open source components and use low coding platform to develop GraphQL APIs\n"
-         "• Define the Behaviour driven design (BDD suite)")
-    ]
+    elements.append(Spacer(1, 12))
 
+    
+    experience = resume.experience_details
     for job in experience:
         elements.append(Paragraph(f"<b>{job[0]}</b> - {job[1]}", styles['Normal']))
         elements.append(Paragraph(f"<i>{job[2]}</i>", styles['Normal']))

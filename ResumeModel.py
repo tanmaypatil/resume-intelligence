@@ -60,10 +60,22 @@ class ResumeModel:
         """Get Candidate personal details as required in resume"""
         return self.__personal_details
     
-    def __parse_experience(self,experience):
-      for e in experience:
-        ach = [ ach.join('\n') for ach in e.achievements ] 
-        ()
+    @property
+    def experience_details(self) -> list[tuple]:
+        """Get Candidate personal details as required in resume"""
+        return self.__experience_details
+    
+    def __parse_experience(self,exp_arr):
+      for e in exp_arr:
+        company = e['company']
+        position = e['position']
+        duration = e['duration']
+        ach_list =  e['achievements']
+        print(f"type of ach_list {type(ach_list)}")
+        ach_str =  ("\n").join(ach_list) 
+        exp_obj = (company,position,duration,ach_str)
+        self.__experience_details.append(exp_obj)
+
     
     def __parse(self):
         # parse summary
@@ -71,6 +83,6 @@ class ResumeModel:
         # parse only technical skills 
         sk = self.__doc.get("skills")
         self.__skills = sk['technical']
-        experience = self._doc.get("experience")
+        experience = self.__doc.get("experience")
         self.__parse_experience(experience)
         
