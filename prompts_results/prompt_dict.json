@@ -6,6 +6,9 @@
     "persona" : "teacher",
     "prompt" : "The candidate is 42 year german language teacher from india . She has 7 years of  experience of teaching german in india for CBSE and ICSE schools . She has completed all certifications notably A1, A2 , B1, B1 , C1 ,C2 .Before  becoming german teacher , she was working in software industry as quality analyst for 8 years ."
 
+},
+{
+    "persona" : "engg director",
+    "prompt" : "Candidate is engineering director in a software product company in pune , india . In a span of 25 years of industry experience , he has started from software engineer as role and moved on to higher level such as team lead  , software manager and director . He has worked mainly on banking products which are delivered to corporate customers . Speciality product development , architecture , localisation and customisation , engineering release management"
 }
-
 ]
