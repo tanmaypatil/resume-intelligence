@@ -2,4 +2,10 @@
     "persona" : "devops engineer",
     "prompt" : 
     "The candidate is 35  years old, has 12 years of experience in IT and has experience in system administration . has worked in unix,linux,  Kubernetes and cloud technologies as a devops engineer .Candidate is well aware of  infrastructure as code concept and  well versed with different cloud vendor offering such as AWS , azure , GCP . Candidate has worked in  3 international companies working out of india" 
-}]
+},{
+    "persona" : "teacher",
+    "prompt" : "The candidate is 42 year german language teacher from india . She has 7 years of  experience of teaching german in india for CBSE and ICSE schools . She has completed all certifications notably A1, A2 , B1, B1 , C1 ,C2 .Before  becoming german teacher , she was working in software industry as quality analyst for 8 years ."
+
+}
+
+]

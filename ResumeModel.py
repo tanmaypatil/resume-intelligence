@@ -12,6 +12,7 @@ class ResumeModel:
         self.__summary =''
         self.__experience_details = []
         self._skills = []
+        self.__education_details = []
         self.__parse_contact()
         self.__parse()
         
@@ -62,8 +63,13 @@ class ResumeModel:
     
     @property
     def experience_details(self) -> list[tuple]:
-        """Get Candidate personal details as required in resume"""
+        """Get Candidate experience details as required in resume"""
         return self.__experience_details
+    
+    @property
+    def education_details(self) -> list[tuple]:
+        """Get Candidate education details as required in resume"""
+        return self.__education_details
     
     def __parse_experience(self,exp_arr):
       for e in exp_arr:
@@ -76,6 +82,13 @@ class ResumeModel:
         exp_obj = (company,position,duration,ach_str)
         self.__experience_details.append(exp_obj)
 
+    def __parse_education(self,edu_arr):
+      for e in edu_arr:
+        institutionName = e['institutionName']
+        degreeName = e['degreeName']
+        duration = e['duration']
+        edu_obj = (institutionName,degreeName,duration)
+        self.__education_details.append(edu_obj)
     
     def __parse(self):
         # parse summary
@@ -85,4 +98,6 @@ class ResumeModel:
         self.__skills = sk['technical']
         experience = self.__doc.get("experience")
         self.__parse_experience(experience)
+        education = self.__doc.get("education")
+        self.__parse_education(education)
         

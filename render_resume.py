@@ -70,14 +70,15 @@ def render_resume_pdf(output_filename,resume : ResumeModel):
     elements.append(Spacer(1, 12))
 
     # Education
+    education = resume.education_details
     elements.append(Paragraph("EDUCATION", styles['Heading']))
-    elements.append(Paragraph("<b>NATIONAL CENTRE FOR SOFTWARE TECHNOLOGY (NCST/CDAC) MUMBAI</b>", styles['Normal']))
-    elements.append(Paragraph("Post graduate diploma for software technology", styles['Normal']))
-    elements.append(Paragraph("2001", styles['Normal']))
     elements.append(Spacer(1, 6))
-    elements.append(Paragraph("<b>K.J.SOMAIYA COLLEGE OF ENGINEERING</b>", styles['Normal']))
-    elements.append(Paragraph("Bachelor of engineering", styles['Normal']))
-    elements.append(Paragraph("1994 - 1998", styles['Normal']))
+    for e in education :
+      elements.append(Paragraph("<b>"+e[0] + "</b>", styles['Normal']))
+      elements.append(Paragraph(e[1], styles['Normal']))
+      elements.append(Paragraph(e[2], styles['Normal']))
+      elements.append(Spacer(1, 6))
+     
 
     # Build the PDF
     doc.build(elements)
