@@ -10,16 +10,16 @@ API_KEY = os.getenv("OPENAI_API_KEY")
 client = OpenAI(api_key=API_KEY)
 
 # Define the structure for the resume
-functions =[
+functions = [
     {
         "name": "generate_resume",
         "description": "Generate a structured resume from candidate description",
         "parameters": {
             "type": "object",
             "properties": {
-                "summary" : {
-                    "type" : "string",
-                    "description" : "summary of the candidates professional experience . Shows highlights of capability"
+                "summary": {
+                    "type": "string",
+                    "description": "summary of the candidates professional experience . Shows highlights of capability"
                 },
                 "personalDetails": {
                     "type": "object",
@@ -108,29 +108,52 @@ functions =[
                 "yearsOfExperience": {
                     "type": "integer",
                     "description": "Total years of professional experience"
+                },
+                "education": {
+                    "type": "array",
+                    "description" : "education details of degree and secondary high school",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "institutionName": {
+                                "type": "string",
+                                "description": "Name of the education institute where candidate studied"
+                            },
+                            "duration": {
+                                "type": "string",
+                                "description": "start year- end year of the academic year for the candudate "
+                            },
+                            "degreeName": {
+                                "type": "string",
+                                "description": "degree name , e.g Bachelor of engineering "
+                            }
+                        }
+                    }
                 }
             },
             "required": [
                 "personalDetails",
                 "experience",
                 "skills",
-                "yearsOfExperience"
+                "yearsOfExperience",
+                "education"
             ]
         }
     }
 ]
 
+
 def generate_resume(description, use_turbo=False):
     """
     Generate a structured resume using either GPT-4-0 or GPT-4-turbo-preview
-    
+
     Args:
         description (str): Description of the candidate
         use_turbo (bool): If True, uses GPT-4-turbo-preview, otherwise uses GPT-4-0
     """
     try:
         model = "gpt-4o"
-        
+
         response = client.chat.completions.create(
             model=model,
             messages=[
@@ -154,5 +177,3 @@ def generate_resume(description, use_turbo=False):
     except Exception as e:
         print(f"Error: {str(e)}")
         return None
-
-
