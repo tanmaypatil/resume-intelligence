@@ -87,6 +87,17 @@ def test_chat():
       ans = chat([img_bytes,query])
       print(ans)
       
+def test_env_model():
+      load_dotenv()
+      print(f"model == {os.getenv('model')}")
+      
+def test_env_instruction():
+      with open("prompts_results\\instructions.txt",'r') as file:
+        content = file.read()
+        print(f"content == {content}")
+      
+    
+      
       
       
       
