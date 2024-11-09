@@ -7,21 +7,22 @@ from vector_store_util import *
 import logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-def index_documents_vectstore(resume_list):
+def get_final_list(resume_list):
   load_dotenv()
   concatPdf = os.getenv("concatPdf")
   finalpdf_list = []
-  logging.info(f"concat pdf  : {concatPdf}")
-  if concatPdf:
-        concat_pdf =concatenate_pdfs(resume_list)
-        finalpdf_list.append(concat_pdf)
+  logging.info(f"concat pdf  : {concatPdf} {type(concatPdf)}")
+  if bool(concatPdf) == True:
+    concat_pdf =concatenate_pdfs(resume_list)
+    finalpdf_list.append(concat_pdf)
   else:
-        finalpdf_list = resume_list
- 
+    logging.info(f"resume list  - {resume_list}")
+    finalpdf_list = list(resume_list)
+  logging.info(f"total file list - {len(finalpdf_list)}")
   return finalpdf_list 
       
 
-def resume_search(resume1,resume2,prompt,instructions):
+def resume_search(resume1,resume2,prompt):
     logging.info(f"resume search {prompt}")
     # index resume1 and resume2
     result = ""
@@ -36,16 +37,17 @@ def resume_search(resume1,resume2,prompt,instructions):
       vector_store = create_vector_store(vector_store_str)
       logging.info(f"create vector store {vector_store.name}:{vector_store.id}")
     # concatenate resumes - openapi requires single file
-    logging.info(f"concatenating the resumes {resume1} {resume2}")
-    file_list = index_documents_vectstore([resume1,resume2])
+    logging.info(f"processing the resumes {resume1} {resume2}")
+    file_list = get_final_list([resume1,resume2])
     # index file into vector store
-    logging.info(f"index into vector store {file_list} ")
+    logging.info(f"index files into vector store : {',' .join(file_list)} ")
     store_id = add_files_instore(vector_store,file_list)
     logging.info(f"post creating index  {store_id}")
     # search for comparative analysis
     # get the instructions to assistant 
     instructions , inst_file_id = get_instructions()
     logging.info(f"instruction file id  {inst_file_id}")
+    logging.debug(f"instruction :  {instructions}")
     assistant_output = search([store_id],prompt,instructions)
     result = "\n".join(assistant_output)
     
