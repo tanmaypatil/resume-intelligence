@@ -5,14 +5,22 @@ from file_search import search
 from pdf_util import * 
 from vector_store_util import *
 import logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(filename)s:%(lineno)d - %(message)s')
 
-def get_final_list(resume_list):
+def parse_bool(value):
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, str):
+        return value.lower() in ('true', 't', 'yes', 'y', '1', 'on')
+    return bool(value)
+
+def get_final_list(resume_list:list)-> list:
   load_dotenv()
   concatPdf = os.getenv("concatPdf")
   finalpdf_list = []
   logging.info(f"concat pdf  : {concatPdf} {type(concatPdf)}")
-  if bool(concatPdf) == True:
+  if parse_bool(concatPdf) == True:
+    logging.info("concatenating pdf into concat_pdf")
     concat_pdf =concatenate_pdfs(resume_list)
     finalpdf_list.append(concat_pdf)
   else:
@@ -47,7 +55,7 @@ def resume_search(resume1,resume2,prompt):
     # get the instructions to assistant 
     instructions , inst_file_id = get_instructions()
     logging.info(f"instruction file id  {inst_file_id}")
-    logging.debug(f"instruction :  {instructions}")
+    logging.info(f"instruction :  {instructions}")
     assistant_output = search([store_id],prompt,instructions)
     result = "\n".join(assistant_output)
     

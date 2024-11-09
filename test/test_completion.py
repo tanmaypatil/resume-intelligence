@@ -99,6 +99,16 @@ def test_env_instruction2():
       print(f" instruction_id - {os.getenv('instruction_id')} ")
       instruction_text,_ = get_instructions()
       print(f"first 20 chars : {instruction_text[0:20]}")
+
+def test_del_vect_files():
+      delete_vector_store_files('resume_compare')
+      
+def test_bool():
+      flag = 'False'
+      if bool(flag) == True:
+        print('True')
+      else :
+        print('False')
       
       
      
