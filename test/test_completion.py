@@ -6,10 +6,7 @@ from dotenv import load_dotenv
 from vector_store_util import * 
 import os
 from claudette import * 
-
-
-
-
+from instructions import *
 
 def test_completion():
   messages=[
@@ -95,6 +92,16 @@ def test_env_instruction():
       with open("system_config\\instructions.txt",'r') as file:
         content = file.read()
         print(f"content == {content}")
+        
+def test_env_instruction2():
+      load_dotenv()
+      print(f" {os.getenv('concatPdf')}") 
+      print(f" instruction_id - {os.getenv('instruction_id')} ")
+      instruction_text = get_instructions()
+      print(f"first 20 chars : {instruction_text[0:20]}")
+      
+      
+     
       
 
       

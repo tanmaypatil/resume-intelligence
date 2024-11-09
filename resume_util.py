@@ -1,15 +1,17 @@
 from dotenv import load_dotenv
 import os
-from file_search import search,add_files
+from instructions import *
+from file_search import search
 from pdf_util import * 
 from vector_store_util import *
 import logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def index_documents_vectstore(resume_list):
+  load_dotenv()
   concatPdf = os.getenv("concatPdf")
   finalpdf_list = []
-  logging.info(f"concat pdf  : ${concatPdf}")
+  logging.info(f"concat pdf  : {concatPdf}")
   if concatPdf:
         concat_pdf =concatenate_pdfs(resume_list)
         finalpdf_list.append(concat_pdf)
@@ -41,6 +43,9 @@ def resume_search(resume1,resume2,prompt,instructions):
     store_id = add_files_instore(vector_store,file_list)
     logging.info(f"post creating index  {store_id}")
     # search for comparative analysis
+    # get the instructions to assistant 
+    instructions , inst_file_id = get_instructions()
+    logging.info(f"instruction file id  {inst_file_id}")
     assistant_output = search([store_id],prompt,instructions)
     result = "\n".join(assistant_output)
     
