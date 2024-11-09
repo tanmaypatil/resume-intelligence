@@ -61,9 +61,8 @@ def compare_resume(resume1,resume2,search_query):
     return None
   
 
-def concatenate_pdfs(pdf1,pdf2):
+def concatenate_pdfs(pdf_files : list):
     output_file = "pdf_concat.pdf"
-    pdf_files = [ pdf1,pdf2]
     # Create a new PDF document
     output_pdf = fitz.open()
 

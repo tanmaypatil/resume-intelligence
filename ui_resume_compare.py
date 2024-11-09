@@ -26,7 +26,7 @@ def compare_resumes(resume1,resume2,prompt):
       logging.info(f"create vector store {vector_store.name}:{vector_store.id}")
     # concatenate resumes - openapi requires single file
     logging.info(f"concatenating the resumes {resume1} {resume2}")
-    concat_pdf =concatenate_pdfs(resume1,resume2)
+    concat_pdf =concatenate_pdfs([resume1,resume2])
     logging.info(f"concatenated resume {concat_pdf}")
     file_list = [concat_pdf]
     # index file into vector store

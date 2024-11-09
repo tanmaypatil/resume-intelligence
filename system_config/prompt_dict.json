@@ -10,5 +10,13 @@
 {
     "persona" : "engg director",
     "prompt" : "Candidate is engineering director in a software product company in pune , india . In a span of 25 years of industry experience , he has started from software engineer as role and moved on to higher level such as team lead  , software manager and director . He has worked mainly on banking products which are delivered to corporate customers . Speciality product development , architecture , localisation and customisation , engineering release management"
+},
+{
+    "persona" : "product manager",
+    "prompt" : "The candidate is 42 years old. Candidate has extensive experience in product management space for banking and finance .  Candidate has developed core banking product called as infosys finacle . He has taken active installations of finacle from 10 to 105 across multiple geographies . Education front , candidate has done MBA from premier institute indian institute of management bangalore . Candidate has rose through ranks of business analyst and now a principle product manager."
+},
+{
+    "persona" : "product owner",
+    "prompt" : "The candidate is 24 years management graduate out of MBA institute. Has mostly internship experience of 1 year in ICICI bank. Has knowledge of relationship banking"
 }
 ]

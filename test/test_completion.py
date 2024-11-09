@@ -92,12 +92,11 @@ def test_env_model():
       print(f"model == {os.getenv('model')}")
       
 def test_env_instruction():
-      with open("prompts_results\\instructions.txt",'r') as file:
+      with open("system_config\\instructions.txt",'r') as file:
         content = file.read()
         print(f"content == {content}")
       
-    
-      
+
       
       
       

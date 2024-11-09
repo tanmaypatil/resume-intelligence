@@ -35,7 +35,7 @@ with gr.Blocks() as demo:
             label="prompt",
             info="Enter search query",
             lines=3,
-            value="Between Arti Patil and Tanmay Patil who has more experience in teaching a german language ",
+            value=" Between Rajesh kumar and Rahul Sharma who is more suitable to work as a engineering manager ",
         )
         ans = gr.Textbox(
             label="Search results",

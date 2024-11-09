@@ -6,8 +6,20 @@ from vector_store_util import *
 import logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
+def index_documents_vectstore(resume_list):
+  concatPdf = os.getenv("concatPdf")
+  finalpdf_list = []
+  logging.info(f"concat pdf  : ${concatPdf}")
+  if concatPdf:
+        concat_pdf =concatenate_pdfs(resume_list)
+        finalpdf_list.append(concat_pdf)
+  else:
+        finalpdf_list = resume_list
+ 
+  return finalpdf_list 
+      
 
-def resume_search(resume1,resume2,prompt):
+def resume_search(resume1,resume2,prompt,instructions):
     logging.info(f"resume search {prompt}")
     # index resume1 and resume2
     result = ""
@@ -23,15 +35,13 @@ def resume_search(resume1,resume2,prompt):
       logging.info(f"create vector store {vector_store.name}:{vector_store.id}")
     # concatenate resumes - openapi requires single file
     logging.info(f"concatenating the resumes {resume1} {resume2}")
-    concat_pdf =concatenate_pdfs(resume1,resume2)
-    logging.info(f"concatenated resume {concat_pdf}")
-    file_list = [concat_pdf]
+    file_list = index_documents_vectstore([resume1,resume2])
     # index file into vector store
     logging.info(f"index into vector store {file_list} ")
     store_id = add_files_instore(vector_store,file_list)
     logging.info(f"post creating index  {store_id}")
     # search for comparative analysis
-    assistant_output = search([store_id],prompt)
+    assistant_output = search([store_id],prompt,instructions)
     result = "\n".join(assistant_output)
     
     return result 
