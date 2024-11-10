@@ -1,5 +1,5 @@
 
-from completion import generate_completion
+
 from file_search import *
 from pdf_totext import extract_text_from_pdf
 from dotenv import load_dotenv
@@ -8,15 +8,7 @@ import os
 from claudette import * 
 from instructions import *
 
-def test_completion():
-  messages=[
-    {"role": "system", "content": "You are a helpful assistant."},
-    {"role": "user", "content": "What is a LLM?"}
-  ]
-  completion = generate_completion(messages)
-  print("Generated Completion:")
-  print(completion)
-  
+
 def test_pdfextract():
   pdf_file_path = 'Tanmay_patil_finastra_Resume.pdf'  # Replace with your PDF file path
   start_page = 0  # Start page index (0-based)

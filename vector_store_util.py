@@ -1,12 +1,12 @@
 from openai import OpenAI
 from typing import List
 import logging
-import json
+import os
+from dotenv import load_dotenv
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-from readProp import *
-
-key = readProperties("OPENAI_KEY")
+load_dotenv()
+key = os.getenv("OPENAI_KEY")
 client = OpenAI(api_key=key)
 
 def delete_vector_store(store_name):

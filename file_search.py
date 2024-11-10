@@ -1,15 +1,15 @@
 from openai import OpenAI
 from typing import List
 import logging
-import json
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 from pydantic import BaseModel
 from pprint import pformat
 import traceback
+import os 
+from dotenv import load_dotenv
 
-from readProp import *
-
-key = readProperties("OPENAI_KEY")
+load_dotenv()
+key = os.getenv("OPENAI_KEY")
 client = OpenAI(api_key=key)
 
 def pretty_print_pydantic(obj):
@@ -23,7 +23,6 @@ def pretty_print_pydantic(obj):
     else:
         return repr(obj)
     
-
 
 def add_files(vector_store_name: str, files: List[str]):
     """Create a new vector store and add files to it."""
