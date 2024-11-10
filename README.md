@@ -1,5 +1,6 @@
 # resume search intelligence
-Resume search using natural queries .  Demo application using openai RAG api and opensource VLM model to do resume analysis.
+Resume search using natural queries .  Demo application using openai RAG api and opensource VLM model to do resume comparative analysis.  
+This would help talent partners and engineering managers to get specific information from the resume.
 
 ## Objective 
 Objective of resume intelligence would be to support natural language query on a set of resumes .
@@ -8,6 +9,20 @@ Let us say , that we have 4 or 5 resumes of prospective software engineers
 Some of the query , which it should allow you to fire are 
 1. Does any of the candidates have team management experience ? 
 2. Who has more experience in java and docker in set of resumes ?
+
+## Synthetic generation of resume
+  In this experiment , you need resumes .
+  Instead of searching for data from internet , i have used chagpt api to generate a resume .
+  I used openai function call and structured response output to get json output . Once you have json , you can convert it into pdf resume document 
+
+```
+   OPENAI_KEY=<substitute your key>
+``` 
+```bash
+   # Install python packages locally.
+   pip install -r requirements.txt
+   python ui_show_resume.py
+```
 
 ## How to run 
   This example can be run on local windows machine/laptop. 
@@ -20,7 +35,7 @@ Some of the query , which it should allow you to fire are
    OPENAI_KEY=<substitute your key>
 ``` 
 ```bash
-   python ui_resume_compare.py
+   python ui_resume_compare2.py
 ```
 ## Demo
 ![Demo](demo.gif)
