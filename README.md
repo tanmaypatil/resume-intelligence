@@ -11,9 +11,10 @@ Some of the query , which it should allow you to fire are
 2. Who has more experience in java and docker in set of resumes ?
 
 ## Synthetic generation of resume
-  In this experiment , you need resumes .
-  Instead of searching for data from internet , i have used chagpt api to generate a resume .
-  I used openai function call and structured response output to get json output . Once you have json , you can convert it into pdf resume document 
+  In this experiment , you need resumes.  
+  Instead of searching for data from internet , i have used chagpt api to generate a resume .  
+  I used openai function call and structured response output to get json output.   
+  Once you have json , you can convert it into pdf resume document.  
 
 ```
    OPENAI_KEY=<substitute your key>
