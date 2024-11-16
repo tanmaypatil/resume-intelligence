@@ -52,6 +52,6 @@ with gr.Blocks() as demo:
     btn.click(fn=convert_image, inputs=pdf_resume1, outputs=output_gallery1)
     btn2.click(fn=convert_image, inputs=pdf_resume2, outputs=output_gallery2)
     btn3.click(fn=resume_search, inputs=[pdf_resume1,pdf_resume2,prompt], outputs=[ans,assistant,thread])
-    btn4.click(fn=resume_search_cont, inputs=[prompt,ans,assistant,thread], outputs=[ans,assistant,thread])
+    btn4.click(fn=resume_search_cont, inputs=[prompt,ans,assistant,thread], outputs=[ans])
 
 demo.launch()

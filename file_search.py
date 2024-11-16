@@ -147,7 +147,7 @@ def search(vector_store_names: List[str], user_input: str, instructions: str):
         traceback.print_exc()  # Prints the full traceback
 
 def search_v2(vector_store_names: List[str], user_input: str, instructions: str,assistant_message:str )-> tuple[list,object,object]:
-    assistant,thread = create_assistant(instructions,vector_store_names,user_input)
+    assistant,thread = create_assistant(instructions,vector_store_names)
     assistant_output = search_with_query(user_input,assistant_message,assistant,thread)
     return assistant_output,assistant,thread
 
@@ -174,6 +174,7 @@ def create_assistant(instructions: str, vector_store_names: list):
         )
         # Create a thread
         thread = client.beta.threads.create()
+        logging.info(f"Create assistant new thread : {thread.id}")
     except Exception as e:
         print(f"An error occurred while creating asistant: {str(e)}")
         traceback.print_exc()  # Prints the full traceback
@@ -181,9 +182,9 @@ def create_assistant(instructions: str, vector_store_names: list):
     return assistant, thread
 
 
-def search_with_query(user_input: str, assistant_message: str, thread: object, assistant: object):
+def search_with_query(user_input: str, assistant_message: str,  assistant: object,thread: object):
+      logging.info('search_with_query : {thread.id}')
       try:
-        logging.info('adding user input to thread {thread.id}')
         assistant_output = []
         # Add the user's message to the thread
         client.beta.threads.messages.create(

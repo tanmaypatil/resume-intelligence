@@ -56,7 +56,8 @@ def resume_search(resume1,resume2,prompt):
     instructions , inst_file_id = get_instructions()
     logging.info(f"instruction file id  {inst_file_id}")
     logging.info(f"instruction :  {instructions}")
-    assistant_output,assistant,thread = search_v2([store_id],prompt,instructions)
+    assistant_message = None
+    assistant_output,assistant,thread = search_v2([store_id],prompt,instructions,assistant_message)
     result = "\n".join(assistant_output)
     
     return result ,assistant,thread
