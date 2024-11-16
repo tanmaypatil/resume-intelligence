@@ -146,6 +146,15 @@ def search(vector_store_names: List[str], user_input: str, instructions: str):
         print(f"An error occurred: {str(e)}")
         traceback.print_exc()  # Prints the full traceback
 
+def search_v2(vector_store_names: List[str], user_input: str, instructions: str,assistant_message:str )-> tuple[list,object,object]:
+    assistant,thread = create_assistant(instructions,vector_store_names,user_input)
+    assistant_output = search_with_query(user_input,assistant_message,assistant,thread)
+    return assistant_output,assistant,thread
+
+def search_v2_cont(user_input:str,assistant_message:str,assistant:object,thread:object )->list:
+    assistant_output = search_with_query(user_input,assistant_message,assistant,thread)
+    return assistant_output
+
 
 def create_assistant(instructions: str, vector_store_names: list):
     try:

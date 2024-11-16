@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 import os
 from instructions import *
-from file_search import search
+from file_search import *
 from pdf_util import * 
 from vector_store_util import *
 import logging
@@ -56,11 +56,26 @@ def resume_search(resume1,resume2,prompt):
     instructions , inst_file_id = get_instructions()
     logging.info(f"instruction file id  {inst_file_id}")
     logging.info(f"instruction :  {instructions}")
-    assistant_output = search([store_id],prompt,instructions)
+    assistant_output,assistant,thread = search_v2([store_id],prompt,instructions)
     result = "\n".join(assistant_output)
     
-    return result 
+    return result ,assistant,thread
   
+def resume_search_cont(prompt : str,assistant_message : str,assistant : object,thread : object):
+    logging.info("resume_search_cont prompt - 50 chars {prompt[0:50]}")
+    result = None
+    load_dotenv()
+    vector_store_str = os.getenv("vector_store_resume")
+    store_len,store_id,vector_store = search_vector_store(vector_store_str)
+    logging.info(f"store_len {store_len} for {vector_store_str}")
+    if  store_len == 0 :
+    # check if store exists , if not skip creation
+       logging.info(f"search error, vector store : {vector_store_str} not found")
+    else :
+      assistant_output =search_v2_cont(prompt,assistant_message,assistant,thread) 
+      result = "\n".join(assistant_output)
+    return result
+
   
 def format_resume_name(candidate_name):
   resume_name = candidate_name
