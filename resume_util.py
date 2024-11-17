@@ -16,10 +16,12 @@ def parse_bool(value):
 
 def get_final_list(resume_list:list)-> list:
   load_dotenv()
-  concatPdf = os.getenv("concatPdf")
+  concat_pdf = os.getenv("concatPdf")
   finalpdf_list = []
-  logging.info(f"concat pdf  : {concatPdf} {type(concatPdf)}")
-  if parse_bool(concatPdf) == True:
+  logging.info(f"concat pdf  : {concat_pdf} {type(concat_pdf)}")
+  concat_pdf = "True"
+  logging.info(f"concat pdf  : {concat_pdf} {type(concat_pdf)}")
+  if parse_bool(concat_pdf) == True:
     logging.info("concatenating pdf into concat_pdf")
     concat_pdf =concatenate_pdfs(resume_list)
     finalpdf_list.append(concat_pdf)
