@@ -30,7 +30,7 @@ def get_final_list(resume_list:list)-> list:
   return finalpdf_list 
       
 
-def resume_search(resume1,resume2,prompt):
+def resume_search(resume1,resume2,prompt,chat_history):
     logging.info(f"resume search {prompt}")
     # index resume1 and resume2
     result = ""
@@ -59,10 +59,14 @@ def resume_search(resume1,resume2,prompt):
     assistant_message = None
     assistant_output,assistant,thread = search_v2([store_id],prompt,instructions,assistant_message)
     result = "\n".join(assistant_output)
-    
-    return result ,assistant,thread
+    logging.info(f"chatbot answering")
+    chat_history.append({"role": "user", "content": prompt})
+    chat_history.append({"role": "assistant", "content": result})
+     # clearing the prompt 
+    cleared_prompt = ""
+    return result ,assistant,thread,chat_history,cleared_prompt
   
-def resume_search_cont(prompt : str,assistant_message : str,assistant : object,thread : object):
+def resume_search_cont(prompt : str,assistant_message : str,assistant : object,thread : object ,chat_history : object):
     logging.info("resume_search_cont prompt - 50 chars {prompt[0:50]}")
     result = None
     load_dotenv()
@@ -75,7 +79,12 @@ def resume_search_cont(prompt : str,assistant_message : str,assistant : object,t
     else :
       assistant_output =search_v2_cont(prompt,assistant_message,assistant,thread) 
       result = "\n".join(assistant_output)
-    return result
+    
+    chat_history.append({"role": "user", "content": prompt})
+    chat_history.append({"role": "assistant", "content": result})
+    # clearing the prompt 
+    cleared_prompt = ""
+    return result ,assistant,thread,chat_history,cleared_prompt
 
   
 def format_resume_name(candidate_name):
