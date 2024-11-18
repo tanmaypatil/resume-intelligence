@@ -81,7 +81,7 @@ def resume_search_cont(prompt : str,assistant_message : str,assistant : object,t
     else :
       assistant_output =search_v2_cont(prompt,assistant_message,assistant,thread) 
       result = "\n".join(assistant_output)
-    
+  
     chat_history.append({"role": "user", "content": prompt})
     chat_history.append({"role": "assistant", "content": result})
     # clearing the prompt 
