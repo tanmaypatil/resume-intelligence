@@ -87,7 +87,7 @@ def test_env_instruction():
         
 def test_env_instruction2():
       load_dotenv()
-      print(f' {os.getenv("concatPdf")}') 
+      print(f' {os.getenv("CONCAT_PDF")}') 
       print(f" instruction_id - {os.getenv('instruction_id')} ")
       instruction_text,_ = get_instructions()
       print(f"first 20 chars : {instruction_text[0:20]}")
