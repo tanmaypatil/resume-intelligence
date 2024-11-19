@@ -22,6 +22,9 @@ def convert_image(pdf_file):
     return images 
 
 with gr.Blocks() as demo:
+    assistant = gr.State()
+    thread = gr.State()
+    assistant_message = gr.State()
     with gr.Row(equal_height=False):
         pdf_resume1 = gr.File(file_types=['.pdf'], label="Upload resume in PDF",scale=2)
         btn = gr.Button(value="Show resume", elem_id="small-btn1",scale=0)
@@ -37,17 +40,16 @@ with gr.Blocks() as demo:
             lines=3,
             value=" Between Rajesh kumar and Rahul Sharma who is more suitable to work as a engineering manager ",
         )
-        ans = gr.Textbox(
-            label="Search results",
-            info="Search result of resume search",
-            lines=3,
-            value="",
-        )
+        chatbot = gr.Chatbot(type="messages", label="Resume intelligence")
     with gr.Row(equal_height=False):
         btn3 = gr.Button(value="query", elem_id="query",scale=0)
+        btn4 = gr.Button(value="submit", elem_id="submit",scale=0)
+        btn5 = gr.ClearButton(value="Clear chat", components=[chatbot],elem_id="clear",scale=0)
    
     btn.click(fn=convert_image, inputs=pdf_resume1, outputs=output_gallery1)
     btn2.click(fn=convert_image, inputs=pdf_resume2, outputs=output_gallery2)
-    btn3.click(fn=resume_search, inputs=[pdf_resume1,pdf_resume2,prompt], outputs=ans)
+    cleared_prompt = ""
+    btn3.click(fn=resume_search, inputs=[pdf_resume1,pdf_resume2,prompt,chatbot], outputs=[assistant_message,assistant,thread,chatbot,prompt])
+    btn4.click(fn=resume_search_cont, inputs=[prompt,assistant_message,assistant,thread,chatbot], outputs=[assistant_message,assistant,thread,chatbot,prompt])
 
 demo.launch()
