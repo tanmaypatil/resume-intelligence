@@ -158,12 +158,14 @@ def search_v2_cont(user_input:str,assistant_message:str,assistant:object,thread:
 
 def create_assistant(instructions: str, vector_store_names: list):
     try:
+        load_dotenv(override=True)
+        model = os.getenv("MODEL")
         # Create an assistant with file search enabled
-        logging.info(f"create assistant , vector store {vector_store_names}")
+        logging.info(f"create assistant , vector store {vector_store_names} , model : {model}")
         assistant = client.beta.assistants.create(
             name="Resume search Assistant",
             instructions=instructions,
-            model="gpt-4o",
+            model=model,
             tools=[{"type": "file_search", "file_search": {
                 "max_num_results": 3, "ranking_options": {"score_threshold": 0.5}}}],
             tool_resources={
