@@ -65,7 +65,7 @@ def add_files_instore(vector_store: object, files: List[str]):
         return None   
     
 def delete_vector_store_files(store_name):
-    len,store_id,_ =search_vector_store(store_name)
+    len_store,store_id,_ =search_vector_store(store_name)
     # get the list of files 
     vector_store_files = client.beta.vector_stores.files.list(vector_store_id=store_id)
     ids = [ v.id for v in vector_store_files]
@@ -75,6 +75,6 @@ def delete_vector_store_files(store_name):
       vector_store_id=store_id,
       file_id=id)
       print(f" vector store : {store_name}, file id {id} : {deleted_vector_store_file}")
-
+    return len(ids)
    
 
