@@ -93,7 +93,8 @@ def test_env_instruction2():
       print(f"first 20 chars : {instruction_text[0:20]}")
 
 def test_del_vect_files():
-      delete_vector_store_files('resume_compare')
+      len_store = delete_vector_store_files('resume_compare')
+      print(f'deleted {len_store} files from resume_compare')
       
 def test_bool():
       flag = 'False'
