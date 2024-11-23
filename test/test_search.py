@@ -39,3 +39,53 @@ def test_list_vectorfiles():
         file_id=file.id )
         print(vector_store_file.status)
         print(vector_store_file.last_error)
+        
+def test_getinst():
+    inst_id = 'readall_pdf'
+    ins_text = get_instruction_useid(inst_id)
+    assert ins_text != None
+    print(ins_text)
+    
+    
+        
+def test_against_allfiles():
+    file_upload_list = ['Rahul_Sharma.pdf','Rajesh_Kumar.pdf','Rahul_Mehta.pdf','Arjun_Patel.pdf']
+    # search vector store first.
+    _,store_id,vector_store = search_vector_store("resume_compare")
+    # delete all files first from vector store
+    delete_vector_store_files('resume_compare')
+    # get instructions
+    instructions,_ = get_instruction_useid('readall_pdf')
+    # set the prompt
+    prompt = 'amongst all resumes available , which candidate ( provide name) is more suitable as a engineering manager for software engineering'
+    # add files to vector store
+    add_files_instore(vector_store,file_upload_list)
+    assistant_message = None
+    # query 
+    assistant_output,assistant,thread = search_v2([store_id],prompt,instructions,assistant_message)
+    print(assistant_output)
+
+def test_engg_manager():
+    _,store_id,vector_store = search_vector_store("resume_compare")
+    # get instructions
+    instructions,_ = get_instruction_useid('readall_pdf')
+    # set the prompt
+    prompt = 'amongst all candidates , who has the more experience as a software engineering manager as per there resume . consider work experience , teams size managed'
+    assistant_message = None
+    # query 
+    assistant_output,assistant,thread = search_v2([store_id],prompt,instructions,assistant_message)
+    print(assistant_output)
+    
+def test_product_manager():
+    _,store_id,vector_store = search_vector_store("resume_compare")
+    # get instructions
+    instructions,_ = get_instruction_useid('readall_pdf')
+    # set the prompt
+    prompt = 'Amongst all candidates based on their resume , and experience who can play a role of product manager for core banking'
+    assistant_message = None
+    # query 
+    assistant_output,assistant,thread = search_v2([store_id],prompt,instructions,assistant_message)
+    print(assistant_output)
+
+
+   

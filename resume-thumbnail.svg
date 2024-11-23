@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Background rectangle -->
+  <rect width="200" height="200" fill="#f0f0f0"/>
+  
+  <!-- Document shape -->
+  <rect x="40" y="30" width="120" height="140" fill="white" stroke="#2563eb" stroke-width="2"/>
+  <path d="M40 30 L160 30 L160 170 L40 170 Z" fill="none" stroke="#2563eb" stroke-width="2"/>
+  
+  <!-- Decorative lines representing text -->
+  <line x1="60" y1="60" x2="140" y2="60" stroke="#94a3b8" stroke-width="2"/>
+  <line x1="60" y1="80" x2="140" y2="80" stroke="#94a3b8" stroke-width="2"/>
+  <line x1="60" y1="100" x2="120" y2="100" stroke="#94a3b8" stroke-width="2"/>
+  
+  <!-- Circle for initials -->
+  <circle cx="100" cy="130" r="25" fill="#2563eb"/>
+  
+  <!-- Initials -->
+  <text x="100" y="138" 
+        font-family="Arial, sans-serif" 
+        font-size="24" 
+        fill="white" 
+        text-anchor="middle" 
+        dominant-baseline="middle">
+    TP
+  </text>
+  
+  <!-- Name below -->
+  <text x="100" y="180" 
+        font-family="Arial, sans-serif" 
+        font-size="12" 
+        fill="#1e293b" 
+        text-anchor="middle">
+    Tanmay Patil
+  </text>
+</svg>
