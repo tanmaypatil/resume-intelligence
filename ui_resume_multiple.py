@@ -28,7 +28,7 @@ with gr.Blocks() as demo:
       for resume in resume_list:
          label = resume.strip('.pdf')
          img_arr = convert_image(resume) 
-         output_gallery1 = gr.Gallery(value=img_arr,type="pil", label=label,elem_id="resume-gallery",height=50,scale=0)
+         output_gallery1 = gr.Gallery(value=img_arr,type="pil", label=label,elem_id="resume-gallery",height=50,scale=0,preview=True)
          gallery.append(output_gallery1)
     
 demo.launch()
