@@ -185,7 +185,7 @@ def create_assistant(instructions: str, vector_store_names: list):
 
 
 def search_with_query(user_input: str, assistant_message: str,  assistant: object,thread: object):
-      logging.info('search_with_query : {thread.id}')
+      logging.info(f'search_with_query : {thread.id}')
       try:
         assistant_output = []
         # Add the user's message to the thread

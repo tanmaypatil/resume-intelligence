@@ -4,5 +4,8 @@
 },
 { "instruction_id" : "individual_pdf",
   "instruction" : "instructions_indpdf.txt"
+},
+{ "instruction_id" : "readall_pdf",
+  "instruction" : "instructions_readall.txt"
 }
 ]
