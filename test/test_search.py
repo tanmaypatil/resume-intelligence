@@ -65,7 +65,7 @@ def test_against_allfiles():
     assistant_output,assistant,thread = search_v2([store_id],prompt,instructions,assistant_message)
     print(assistant_output)
 
-def test_withoutdelete():
+def test_engg_manager():
     _,store_id,vector_store = search_vector_store("resume_compare")
     # get instructions
     instructions,_ = get_instruction_useid('readall_pdf')
@@ -75,5 +75,17 @@ def test_withoutdelete():
     # query 
     assistant_output,assistant,thread = search_v2([store_id],prompt,instructions,assistant_message)
     print(assistant_output)
+    
+def test_product_manager():
+    _,store_id,vector_store = search_vector_store("resume_compare")
+    # get instructions
+    instructions,_ = get_instruction_useid('readall_pdf')
+    # set the prompt
+    prompt = 'Amongst all candidates based on their resume , and experience who can play a role of product manager for core banking'
+    assistant_message = None
+    # query 
+    assistant_output,assistant,thread = search_v2([store_id],prompt,instructions,assistant_message)
+    print(assistant_output)
+
 
    
