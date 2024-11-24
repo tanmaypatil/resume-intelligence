@@ -21,17 +21,17 @@ def convert_image(pdf_file):
     return images 
 
 with gr.Blocks() as demo:
-    gallery = gr.Gallery(value = [( "Tanmay_patil_thumbnail.png","Rahul_Mehta.pdf"),( "Tanmay_patil_thumbnail.png","Rahul_Sharma.pdf")],scale=0,height=60,rows=1,columns=2,selected_index=0
+    gallery = gr.Gallery(value = [( "Tanmay_patil_thumbnail.png","Rahul_Mehta.pdf"),( "Andrej_Karpathy_thumbnail.png","Rahul_Sharma.pdf")],scale=0,height=60,rows=1,columns=2,selected_index=0
                          )
     resume = gr.Gallery(label='resume')
     statement = gr.Textbox()
 
-    def on_select( evt,second):
+    def on_select( evt : gr.SelectData,second):
         print(type(evt))
-        print(type(evt[0]))
-        (_,resume_name) = evt[0]
-        print(f'resume_name {resume_name}')
-        img_arr = convert_image(resume_name)
+        print(f"value : {evt.value} , type : {type(evt.value)}")
+        file_name = evt.value['caption']
+        print(f"resume name {file_name}")
+        img_arr = convert_image(file_name)
         return img_arr
 
     gallery.select(on_select, gallery, resume)
