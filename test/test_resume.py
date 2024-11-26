@@ -64,6 +64,7 @@ def test_no_list_comprehension():
     str =  ("\n").join(list)    
     print(str)
     
-
+def test_name_thumbnail():
+      create_name_thumbnail("Jeff Dean",".\\resumes")
     
 

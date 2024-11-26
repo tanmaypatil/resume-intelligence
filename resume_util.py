@@ -112,6 +112,8 @@ def create_name_thumbnail(full_name, output_path=None):
     # If output_path is not provided, create one from the name
     if output_path is None:
         output_path = f"{full_name.replace(' ', '_')}_thumbnail.png"
+    else:
+       output_path = f"{output_path}\\{full_name.replace(' ', '_')}_thumbnail.png"
         
     print(f' output path {output_path}')
     

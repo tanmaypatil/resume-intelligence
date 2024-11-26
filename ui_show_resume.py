@@ -30,11 +30,21 @@ def generate_resume_json(input_prompt):
     
       return final_json
   
+def generate_resume_wrapper(input_prompt):
+    """Function to generate a resume in pdf format and generate a thumbnail"""
+    load_dotenv(override=True)
+    resume_path = os.getenv("RESUME_PATH")
+    logging.info(f' resume_path {resume_path} ')   
+    (images,resume_name) = generate_resume_pdf(input_prompt,resume_path)
+    fqn_resume = resume_path + '\\' + resume_name
+    create_name_thumbnail(resume_name,resume_path)
+    return images
 
   
-def generate_resume_pdf(input_prompt):
+def generate_resume_pdf(input_prompt,resume_path):
       """Function to generate a resume in pdf format"""
       logging.info('generate_resume_pdf ')
+
       resume_json = generate_resume(input_prompt)
       parsed_json = resume_json
       
@@ -51,10 +61,12 @@ def generate_resume_pdf(input_prompt):
       resume = ResumeModel(parsed_json)
       logging.info(f"resume model created for candidate : {resume.name}")
       resume_name = format_resume_name(resume.name)
-      logging.info(f"resume pdf name : {resume_name}")
-      render_resume_pdf(resume_name,resume)
-      images= pdf_to_image_task(resume_name)
-      return images
+      fqn_resume = resume_path + '\\' + resume_name
+      logging.info(f'Full resume name : {fqn_resume}')
+      render_resume_pdf(fqn_resume,resume)
+      
+      images= pdf_to_image_task(fqn_resume)
+      return images,resume.name
     
 def get_default_prompt():
       with open('.\\system_config\\prompt_dict.json') as file:
@@ -100,7 +112,7 @@ with gr.Blocks() as demo:
     )
       
     resume_button.click(
-        fn=generate_resume_pdf,
+        fn=generate_resume_wrapper,
         inputs=[input],
         outputs=[resume_output]
     )
