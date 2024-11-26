@@ -1,8 +1,10 @@
 
 
 from file_search import *
+from file_util import list_files_with_extension
 from pdf_totext import extract_text_from_pdf
 from dotenv import load_dotenv
+from resume_util import create_name_thumbnail
 from vector_store_util import * 
 import os
 from claudette import * 
@@ -102,6 +104,17 @@ def test_bool():
         print('True')
       else :
         print('False')
+        
+def test_file_list():
+      list = list_files_with_extension(".\\resumes","pdf")
+      for f in list:
+        name = f.replace("_"," ").strip(".pdf")
+        create_name_thumbnail(name,".\\resumes")
+      list_png = list_files_with_extension(".\\resumes","png")
+      print(f"list_png {len(list_png)}")
+      print(f"list {len(list)}")
+      
+      
       
       
      
