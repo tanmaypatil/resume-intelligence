@@ -31,9 +31,19 @@ Some of the query , which it should allow you to fire are
   You need to select 2 resumes from UI application , type in the query in prompt box.  
   and hit submit.
   User needs to key in openai key in .env file which is present in root of the folder. 
+  .env file example
 
 ```
-   OPENAI_KEY=<substitute your key>
+   OPENAI_KEY= <openai key>
+   vector_store_resume=resume_compare
+   MODEL=gpt-4o-2024-11-20
+   # individual file is put into vector store if value is FALSE
+   CONCAT_PDF=False
+   # instruction for assistant is chosen based on this. Possible values ( individual_pdf|concat_pdf)
+   INSTRUCTION_ID=individual_pdf
+   # Path where generated pdf resumes are stored.
+   RESUME_PATH=.\\resumes
+
 ``` 
 ```bash
    python ui_resume_compare2.py
