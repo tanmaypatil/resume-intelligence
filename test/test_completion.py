@@ -71,8 +71,7 @@ def test_chat():
       print(models[1])
       img_bytes = create_test_image()
       load_dotenv()
-      #print(f"api key {os.getenv('ANTHROPIC_KEY3')}")
-      os.environ["ANTHROPIC_API_KEY"] = os.getenv("ANTHROPIC_KEY3")
+      os.environ["ANTHROPIC_API_KEY"] = os.getenv("ANTHROPIC_KEY")
       chat = Chat(models[1])
       query = "what is tanmay patils role in finastra"
       ans = chat([img_bytes,query])
