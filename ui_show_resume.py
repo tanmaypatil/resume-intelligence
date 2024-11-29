@@ -80,7 +80,7 @@ def get_default_prompt():
 
 # Create the Gradio interface
 with gr.Blocks() as demo:
-    gr.Markdown("### Give a promot to generate resume as per instruction")
+    gr.Markdown("### Give a prompt to generate resume as per instruction")
     prompt = get_default_prompt()
     
     with gr.Row():
