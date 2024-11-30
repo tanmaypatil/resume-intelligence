@@ -6,6 +6,8 @@ __pycache__/
 # index files
 *.gz
 
+# resumes inside resume folder
+resume/
 
 # C extensions
 *.so
