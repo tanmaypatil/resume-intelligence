@@ -9,7 +9,7 @@ load_dotenv()
 key = os.getenv("OPENAI_KEY")
 client = OpenAI(api_key=key)
 
-def delete_vector_store(store_name):
+def delete_vector_store(store_name : str):
     logging.info(f"deleting store {store_name}")
     vector_stores = client.beta.vector_stores.list()
     stores = [  vs.id for vs in vector_stores ]
@@ -18,13 +18,13 @@ def delete_vector_store(store_name):
     logging.info(f"deleting ${store_name}:{store_id}")
     return store_id     
  
-def create_vector_store(store_name):
+def create_vector_store(store_name : str):
     logging.info(f"creating store {store_name}")
     vector_store = client.beta.vector_stores.create(name=store_name)
     logging.info(f"creating store : store id {vector_store.id}")
     return vector_store
 
-def search_vector_store(store_name):
+def search_vector_store(store_name : str):
     store_len = 0
     logging.info(f"searching store {store_name}")
     vector_stores = client.beta.vector_stores.list()
