@@ -20,7 +20,7 @@ def clean_docs():
 def upload_all():
     logging.info('uploading all docs to resume_compare')
     store_len,_,store_obj = search_vector_store('resume_compare')
-    copy_folder_contents('.\\resumes_gen','.\\resume')
+    copy_folder_contents('.\\resumes_gen','.\\resumes')
     resume_list = list_files_with_extension('.\\resumes','pdf')
     gr.Info(f'Uploading files to file store #{len(resume_list)}')
     add_files_instore(store_obj,resume_list)
