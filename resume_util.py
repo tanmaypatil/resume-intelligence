@@ -6,6 +6,7 @@ from pdf_util import *
 from vector_store_util import *
 import logging
 import cairosvg
+import gradio as gr
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(filename)s:%(lineno)d - %(message)s')
 
 def parse_bool(value):
@@ -87,6 +88,36 @@ def resume_search_cont(prompt : str,assistant_message : str,assistant : object,t
     # clearing the prompt 
     cleared_prompt = ""
     return result ,assistant,thread,chat_history,cleared_prompt
+
+def resume_search_store(prompt,chat_history):
+    logging.info(f"resume search complete store :{prompt}")
+    result = ""
+    # get vector store id 
+    load_dotenv()
+    vector_store_str = os.getenv("vector_store_resume")
+    # check if store exists , if not skip creation 
+    store_len,store_id,vector_store = search_vector_store(vector_store_str)
+    logging.info(f"store_len {store_len} for {vector_store_str}")
+    if store_len == 0:
+      gr.Error("vector store :'resume_compare' does not exist ")
+      logging.error(f"vector store :'resume_compare' does not exist")
+      return None,None,None,None,None
+    else :
+      logging.info(f'vector store id {store_id}')
+    # get the instructions to assistant 
+    instructions , inst_file_id = get_instructions()
+    logging.info(f"instruction file id  {inst_file_id}")
+    logging.info(f"instruction :  {instructions}")
+    assistant_message = None
+    assistant_output,assistant,thread = search_v2([store_id],prompt,instructions,assistant_message)
+    result = "\n".join(assistant_output)
+    logging.info(f"chatbot answering")
+    chat_history.append({"role": "user", "content": prompt})
+    chat_history.append({"role": "assistant", "content": result})
+     # clearing the prompt 
+    cleared_prompt = ""
+    return result ,assistant,thread,chat_history,cleared_prompt
+
 
   
 def format_resume_name(candidate_name):

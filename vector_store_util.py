@@ -38,7 +38,7 @@ def search_vector_store(store_name : str):
     else:
       return 0,None,None
 
-def add_files_instore(vector_store: object, files: List[str]):
+def add_files_instore(vector_store: object, files: List[str] , base_path ='.\\resumes'):
     """Add files into a existing vector store"""
     try:
         # Adding a files into existing store
@@ -46,9 +46,12 @@ def add_files_instore(vector_store: object, files: List[str]):
         # Upload files and add them to the vector store
         file_ids = []
         for file_path in files:
+            file_path = f'{base_path}\\{file_path}'
             with open(file_path, "rb") as file:
+                logging.info(f"Adding file  : {file_path}")
                 uploaded_file = client.files.create(file=file, purpose="assistants")
                 file_ids.append(uploaded_file.id)
+                logging.info(f"Adding file  : {file_path} , file id : {uploaded_file.id}")
         
         # Add files to the vector store
         file_batch = client.beta.vector_stores.file_batches.create_and_poll(
@@ -61,7 +64,7 @@ def add_files_instore(vector_store: object, files: List[str]):
         logging.debug(f"File counts: {file_batch.file_counts}")
         return vector_store.id
     except Exception as e:
-        logging.error(f"An error occurred: {str(e)}", err=True)
+        logging.error(f"An error occurred: {str(e)}")
         return None   
     
 def delete_vector_store_files(store_name):
@@ -76,5 +79,13 @@ def delete_vector_store_files(store_name):
       file_id=id)
       print(f" vector store : {store_name}, file id {id} : {deleted_vector_store_file}")
     return len(ids)
+
+def get_vector_store_file_count(store_name):
+    len_store,store_id,_ =search_vector_store(store_name)
+    # get the list of files 
+    vector_store_files = client.beta.vector_stores.files.list(vector_store_id=store_id)
+    ids = [ v.id for v in vector_store_files]
+    return (len(ids),ids)
+
    
 

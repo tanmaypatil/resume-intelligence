@@ -8,6 +8,8 @@ __pycache__/
 
 # resumes inside resume folder
 resume/
+resumes_temp/
+resumes/
 
 # C extensions
 *.so

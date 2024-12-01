@@ -67,5 +67,42 @@ def copy_folder_contents(source_dir, destination_dir):
         print(f"Error: Permission denied. Please check your access rights.")
     except Exception as e:
         print(f"An error occurred: {str(e)}")
+        
+def delete_files(folder_path, pattern="*", recursive=False):
+    """
+    Delete files from a folder with various options.
+    
+    Args:
+        folder_path (str): Path to the folder
+        pattern (str): File pattern to match (e.g., "*.txt", "*.*"), defaults to all files
+        recursive (bool): Whether to delete files in subfolders too
+    """
+    try:
+        # Convert to Path object
+        folder = Path(folder_path)
+        
+        # Check if folder exists
+        if not folder.exists():
+            raise FileNotFoundError(f"Folder '{folder_path}' does not exist")
+        
+        # Count files before deletion
+        files_to_delete = list(folder.rglob(pattern) if recursive else folder.glob(pattern))
+        total_files = len(files_to_delete)
+        
+        # Delete files
+        deleted_count = 0
+        for file_path in files_to_delete:
+            if file_path.is_file():  # Make sure it's a file, not a directory
+                file_path.unlink()
+                print(f"Deleted: {file_path}")
+                deleted_count += 1
+                
+        print(f"\nDeleted {deleted_count} out of {total_files} files")
+        return deleted_count     
+    except PermissionError:
+        print("Error: Permission denied. Please check your access rights.")
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
+        return 0
 
 
