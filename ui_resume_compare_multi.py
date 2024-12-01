@@ -90,7 +90,7 @@ with gr.Blocks(theme=gr.themes.Soft()) as demo:
             value="  ",
             interactive=True
         )
-      chatbot = gr.Chatbot(type="messages", label="Resume intelligence")
+      chatbot = gr.Chatbot(type="messages", label="Resume intelligence",avatar_images=("resume_search.png","resume_search.png"))
     with gr.Row():
       query = gr.Button(value="query", variant='primary',elem_id="query",scale=0)
       upd_all = gr.Button("upload all",variant='secondary',elem_id="upd_all",scale=0)
