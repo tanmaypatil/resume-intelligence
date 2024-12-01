@@ -60,7 +60,8 @@ def convert_image(pdf_file):
     return images 
 
     
-with gr.Blocks() as demo:
+with gr.Blocks(theme=gr.themes.Soft()) as demo:
+    gr.Markdown("# Smart Resume Review")
     assistant = gr.State()
     thread = gr.State()
     assistant_message = gr.State()
@@ -91,9 +92,9 @@ with gr.Blocks() as demo:
         )
       chatbot = gr.Chatbot(type="messages", label="Resume intelligence")
     with gr.Row():
-      query = gr.Button(value="query", elem_id="query",scale=0)
-      upd_all = gr.Button("upload all",variant='primary',elem_id="upd_all",scale=0)
-      clr_all = gr.Button("clear all",variant='primary',elem_id="clr_all",scale=0)
+      query = gr.Button(value="query", variant='primary',elem_id="query",scale=0)
+      upd_all = gr.Button("upload all",variant='secondary',elem_id="upd_all",scale=0)
+      clr_all = gr.Button("clear all",variant='secondary',elem_id="clr_all",scale=0)
       
     
     # hook event handler to display resume   

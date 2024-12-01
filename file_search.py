@@ -66,8 +66,8 @@ def list_stores():
 
 
 def search(vector_store_names: List[str], user_input: str, instructions: str):
-    assistant_output = []
     """Search inside the openai vector store """
+    assistant_output = []
     # Set ranking options, including a score threshold (hypothetical)
     logging.info(f"vector search search prompt is {user_input}")
     logging.info(f"vector search , store names is {vector_store_names}")
