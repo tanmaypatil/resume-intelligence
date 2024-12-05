@@ -68,6 +68,7 @@ def list_stores():
 def search(vector_store_names: List[str], user_input: str, instructions: str):
     """Search inside the openai vector store """
     assistant_output = []
+    annotations = []
     # Set ranking options, including a score threshold (hypothetical)
     logging.info(f"vector search search prompt is {user_input}")
     logging.info(f"vector search , store names is {vector_store_names}")
@@ -112,6 +113,8 @@ def search(vector_store_names: List[str], user_input: str, instructions: str):
                     if len(message.content) > 0:
                         print(f"Assistant: {message.content[0].text.value}")
                         assistant_output.append(message.content[0].text.value)
+                        print(f"Assistant annotation : {message.content[0].text.annotations}")
+                        annotations.extend(message.content[0].text.annotations)
                         break
 
             # Retrieve and display the run step details
@@ -136,23 +139,23 @@ def search(vector_store_names: List[str], user_input: str, instructions: str):
                             if (run_step.step_details.tool_calls[0].file_search.results
                                 and run_step.step_details.tool_calls[0].file_search.results[0].content
                                     and len(run_step.step_details.tool_calls[0].file_search.results[0].content) > 0):
-                                text = run_step.step_details.tool_calls[0].file_search.results[0].content[0].text
+                                found_text = run_step.step_details.tool_calls[0].file_search.results[0].content[0].text
                                 logging.info(
-                                    f"Chunk 30 characters {text[0:30]}")
+                                    f"Chunk 30 characters {found_text[0:30]}")
 
         logging.info(f"output is {assistant_output}")
-        return assistant_output
+        return (assistant_output,annotations,found_text)
     except Exception as e:
         print(f"An error occurred: {str(e)}")
         traceback.print_exc()  # Prints the full traceback
 
-def search_v2(vector_store_names: List[str], user_input: str, instructions: str,assistant_message:str )-> tuple[list,object,object]:
+def search_v2(vector_store_names: List[str], user_input: str, instructions: str,assistant_message:str )-> tuple[list,list,str,object,object]:
     assistant,thread = create_assistant(instructions,vector_store_names)
-    assistant_output = search_with_query(user_input,assistant_message,assistant,thread)
-    return assistant_output,assistant,thread
+    assistant_output,annotations,found_text = search_with_query(user_input,assistant_message,assistant,thread)
+    return (assistant_output,annotations,found_text,assistant,thread)
 
 def search_v2_cont(user_input:str,assistant_message:str,assistant:object,thread:object )->list:
-    assistant_output = search_with_query(user_input,assistant_message,assistant,thread)
+    assistant_output,annotations,found_text = search_with_query(user_input,assistant_message,assistant,thread)
     return assistant_output
 
 
@@ -188,6 +191,8 @@ def search_with_query(user_input: str, assistant_message: str,  assistant: objec
       logging.info(f'search_with_query : {thread.id}')
       try:
         assistant_output = []
+        annotations = []
+        found_text = None
         # Add the user's message to the thread
         client.beta.threads.messages.create(
             thread_id=thread.id,
@@ -220,6 +225,8 @@ def search_with_query(user_input: str, assistant_message: str,  assistant: objec
               if len(message.content) > 0:
                 logging.info(f"Assistant reply: {message.content[0].text.value}")
                 assistant_output.append(message.content[0].text.value)
+                print(f"Assistant annotation : {message.content[0].text.annotations}")
+                annotations.extend(message.content[0].text.annotations)
                 break
             # Retrieve and display the run step details
             run_steps = client.beta.threads.runs.steps.list(
@@ -243,12 +250,12 @@ def search_with_query(user_input: str, assistant_message: str,  assistant: objec
                     if (run_step.step_details.tool_calls[0].file_search.results
                       and run_step.step_details.tool_calls[0].file_search.results[0].content
                       and len(run_step.step_details.tool_calls[0].file_search.results[0].content) > 0):
-                      text = run_step.step_details.tool_calls[0].file_search.results[0].content[0].text
-                      logging.info(f"Chunk 50 characters {text[0:50]}")
+                      found_text = run_step.step_details.tool_calls[0].file_search.results[0].content[0].text
+                      logging.info(f"Chunk 50 characters {found_text[0:50]}")
 
         logging.info(f"output is {assistant_output}")
-        return assistant_output
+        return assistant_output,annotations,found_text
       except Exception as e:
         print(f"An error occurred: {str(e)}")
         traceback.print_exc()  # Prints the full traceback
-        return None
+        return None,None,None

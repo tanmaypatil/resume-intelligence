@@ -4,6 +4,7 @@ from resume_util import *
 from vector_store_util import *
 import os,openai 
 from dotenv import load_dotenv
+from file_search import *
 
 load_dotenv()
 key = os.getenv("OPENAI_KEY")
@@ -86,6 +87,55 @@ def test_product_manager():
     # query 
     assistant_output,assistant,thread = search_v2([store_id],prompt,instructions,assistant_message)
     print(assistant_output)
+
+def test_against_allfiles_annotate():
+    file_upload_list = ['Anjali_Kapoor.pdf','Arjun_Patel.pdf','Rajesh_Kumar.pdf']
+    # search vector store first.
+    _,store_id,vector_store = search_vector_store("resume_compare")
+    # delete all files first from vector store
+    delete_vector_store_files('resume_compare')
+    # get instructions
+    instructions,_ = get_instruction_useid('readall_pdf')
+    # set the prompt
+    prompt = 'amongst all resumes available , which candidate ( provide name) is more suitable as a engineering manager for software engineering'
+    # add files to vector store
+    add_files_instore(vector_store,file_upload_list)
+    assistant_message = None
+    # query 
+    assistant_output,annotations,found_text,assistant,thread = search_v2([store_id],prompt,instructions,assistant_message)
+    print(assistant_output)
+    print(f'Annotation : {annotations}')
+    print(f'found_text  : {found_text}')
+
+def test_against_noupload_annotate():
+    # search vector store first.
+    _,store_id,vector_store = search_vector_store("resume_compare")
+    # get instructions
+    instructions,_ = get_instruction_useid('readall_pdf')
+    # set the prompt
+    prompt = 'amongst all resumes available, which candidate ( provide name) is more suitable as a engineering manager for software engineering'
+    assistant_message = None
+    # query 
+    assistant_output,annotations,found_text,assistant,thread = search_v2([store_id],prompt,instructions,assistant_message)
+    print(assistant_output)
+    print(f'Annotation : {annotations}')
+    print(f'found_text  : {found_text}')
+    
+def test_against_noupload1_annotate():
+    # search vector store first.
+    _,store_id,vector_store = search_vector_store("resume_compare")
+    # get instructions
+    instructions,_ = get_instruction_useid('readall_pdf')
+    # set the prompt
+    prompt = 'Does Rajesh Kumar as per his resume has expertise in software engineering management'
+    assistant_message = None
+    # query 
+    assistant_output,annotations,found_text,assistant,thread = search_v2([store_id],prompt,instructions,assistant_message)
+    print(assistant_output)
+    print(f'Annotation : {annotations}')
+    print(f'found_text  : {found_text}')
+
+
 
 
    
