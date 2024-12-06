@@ -16,7 +16,8 @@ client = OpenAI(api_key=key)
 
 def pretty_print_pydantic(obj):
     if isinstance(obj, BaseModel):
-        logging.info(f"object instance {obj.model_fields.keys()}")
+        logging.info(f" name : {obj.__class__.__name__}")
+        logging.info(f"pydantic object instance {obj.model_fields.keys()}")
         return pformat(obj.model_dump(), indent=2, width=120)
     elif isinstance(obj, list):
         return pformat([pretty_print_pydantic(item) for item in obj], indent=2, width=120)

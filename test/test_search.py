@@ -132,8 +132,13 @@ def test_against_noupload1_annotate():
     # query 
     assistant_output,annotations,found_text,assistant,thread = search_v2([store_id],prompt,instructions,assistant_message)
     print(assistant_output)
-    print(f'Annotation : {annotations}')
-    print(f'found_text  : {found_text}')
+    print(f'Annotation : {pretty_print_pydantic(annotations)}')
+    final_annotations = []
+    for anno in annotations:
+        if(isinstance(anno,BaseModel)):
+            print( f" {anno.model_dump()}")
+            final_annotations.append(anno.model_dump)
+    #print(f'found_text  : {found_text}')
 
 
 
