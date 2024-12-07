@@ -134,11 +134,51 @@ def test_against_noupload1_annotate():
     print(assistant_output)
     print(f'Annotation : {pretty_print_pydantic(annotations)}')
     final_annotations = []
-    for anno in annotations:
-        if(isinstance(anno,BaseModel)):
-            print( f" {anno.model_dump()}")
-            final_annotations.append(anno.model_dump)
-    #print(f'found_text  : {found_text}')
+    print(f'found_text  : {found_text}')
+
+def test_against_allfiles_chunksize400():
+    """test with changing file chunksize to 400  
+    """
+    file_upload_list = ['Anjali_Kapoor.pdf','Arjun_Patel.pdf','Rajesh_Kumar.pdf']
+    # search vector store first.
+    _,store_id,vector_store = search_vector_store("resume_compare")
+    # delete all files first from vector store
+    delete_vector_store_files('resume_compare')
+    # get instructions
+    instructions,_ = get_instruction_useid('readall_pdf')
+    # set the prompt
+    prompt = 'amongst all resumes available , which candidate ( provide name) is more suitable as a engineering manager for software engineering'
+    # add files to vector store , change chunksize to 400 from 800
+    add_files_instore(vector_store,file_upload_list,max_chunk_size_tokens=400,chunk_overlap_tokens=200)
+    assistant_message = None
+    # query 
+    assistant_output,annotations,found_text,assistant,thread = search_v2([store_id],prompt,instructions,assistant_message)
+    print(assistant_output)
+    print(f'Annotation : {annotations}')
+    print(f'found_text  : {found_text}')
+
+def test_against_allfiles_chunksize600():
+    """test with changing file chunksize to 400  
+    """
+    file_upload_list = ['Anjali_Kapoor.pdf','Arjun_Patel.pdf','Rajesh_Kumar.pdf']
+    # search vector store first.
+    _,store_id,vector_store = search_vector_store("resume_compare")
+    # delete all files first from vector store
+    delete_vector_store_files('resume_compare')
+    # get instructions
+    instructions,_ = get_instruction_useid('readall_pdf')
+    # set the prompt
+    prompt = 'amongst all resumes available , which candidate ( provide name) is more suitable as a engineering manager for software engineering'
+    # add files to vector store , change chunksize to 600 from 800
+    add_files_instore(vector_store,file_upload_list,max_chunk_size_tokens=600,chunk_overlap_tokens=300)
+    assistant_message = None
+    # query 
+    assistant_output,annotations,found_text,assistant,thread = search_v2([store_id],prompt,instructions,assistant_message)
+    print(assistant_output)
+    print(f'Annotation : {annotations}')
+    print(f'found_text  : {found_text}')
+
+
 
 
 

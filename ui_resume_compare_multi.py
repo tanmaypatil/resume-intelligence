@@ -65,6 +65,7 @@ with gr.Blocks(theme=gr.themes.Soft()) as demo:
     assistant = gr.State()
     thread = gr.State()
     assistant_message = gr.State()
+    found_text = gr.State()
    
     with gr.Row(equal_height=False):
       # get list of the thumbnails
@@ -72,7 +73,7 @@ with gr.Blocks(theme=gr.themes.Soft()) as demo:
       list_gallery = [ ( '.\\resumes\\' + l,'.\\resumes\\' + l.removesuffix("_thumbnail.png") + '.pdf') for l in list ]
 
       gallery = gr.Gallery( value = list_gallery,height=150,rows=1,columns=7,selected_index=0,label="Resumes",interactive=False,elem_id="resume_thumbnail" )    
-      resume = gr.Gallery(label='Selected Resume')
+      resume = gr.Gallery(label='Resume Browser')
       # handler to display resume 
       def on_select( evt : gr.SelectData,second):
         print(type(evt))
@@ -104,7 +105,7 @@ with gr.Blocks(theme=gr.themes.Soft()) as demo:
       # event handler for clearing documents
     clr_all.click(fn=clean_docs,inputs=[gallery],outputs=[gallery,resume])
     # event handler for querying resume file store
-    query.click(fn=search_resume_store,inputs=[prompt,chatbot],outputs=[assistant_message,assistant,thread,chatbot,prompt])
+    query.click(fn=search_resume_store,inputs=[prompt,chatbot],outputs=[assistant_message,assistant,thread,chatbot,prompt,found_text])
     
     
 

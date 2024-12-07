@@ -109,14 +109,14 @@ def resume_search_store(prompt,chat_history):
     logging.info(f"instruction file id  {inst_file_id}")
     logging.info(f"instruction :  {instructions}")
     assistant_message = None
-    assistant_output,assistant,thread = search_v2([store_id],prompt,instructions,assistant_message)
+    assistant_output,annotations , found_text ,assistant,thread = search_v2([store_id],prompt,instructions,assistant_message)
     result = "\n".join(assistant_output)
     logging.info(f"chatbot answering")
     chat_history.append({"role": "user", "content": prompt})
     chat_history.append({"role": "assistant", "content": result})
      # clearing the prompt 
     cleared_prompt = ""
-    return result ,assistant,thread,chat_history,cleared_prompt
+    return result ,assistant,thread,chat_history,cleared_prompt,found_text
 
 
   
