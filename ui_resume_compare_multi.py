@@ -6,14 +6,20 @@ import logging
 from file_util import *
 from vector_store_util import *
 from resume_util import * 
+from highlight import *
 import os
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(filename)s:%(lineno)d - %(message)s')
 
 def search_resume_store(prompt,chatbot):
-  return resume_search_store(prompt,chatbot)    
+  result ,assistant,thread,chat_history,cleared_prompt,found_text= resume_search_store(prompt,chatbot)
+  #logging.info('try to highlight')
+  #if ( found_text and len(found_text) > 0):
+  #  partial_text = found_text[0:90]
+  #  logging.info( f"partial text for highlighting {partial_text}")
+  #  highlight_text(pdf_path=".\\resumes\\Rajesh_Kumar.pdf",search_text=partial_text,output_path=".\\resumes_highlighted\\highlighted_temp.pdf",exact_match=True)
+  return result ,assistant,thread,chat_history,cleared_prompt,found_text   
   
-
 def clean_docs(image_gallery :list ):
   if image_gallery:
     logging.info(f'cleaning docs from resume_compare , inside resume folder doc count {len(image_gallery)}')

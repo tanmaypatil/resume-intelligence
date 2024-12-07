@@ -229,26 +229,23 @@ def search_with_query(user_input: str, assistant_message: str,  assistant: objec
                 print(f"Assistant annotation : {message.content[0].text.annotations}")
                 annotations.extend(message.content[0].text.annotations)
                 break
-            # Retrieve and display the run step details
-            run_steps = client.beta.threads.runs.steps.list(
+          # Retrieve and display the run step details
+          run_steps = client.beta.threads.runs.steps.list(
                 thread_id=thread.id, run_id=run.id)
-            for step in run_steps.data:
-              if step.type == "tool_calls":
-                for tool_call in step.step_details.tool_calls:
-                  if tool_call.type == "file_search":
-                    logging.info(f"file search was invoked")
-                    run_step = client.beta.threads.runs.steps.retrieve(
+          for step in run_steps.data:
+            if step.type == "tool_calls":
+              for tool_call in step.step_details.tool_calls:
+                if tool_call.type == "file_search":
+                  logging.info(f"file search was invoked")
+                  run_step = client.beta.threads.runs.steps.retrieve(
                                 thread_id=thread.id,
                                 run_id=run.id,
                                 step_id=step.id,
                                 include=[
                                     "step_details.tool_calls[*].file_search.results[*].content"]
                             )
-                    logging.info("\nFile Search Results:")
-                    logging.info(pretty_print_pydantic(
-                            run_step.step_details.tool_calls[0].file_search.results))
-
-                    if (run_step.step_details.tool_calls[0].file_search.results
+                  # storing the chunk
+                  if (run_step.step_details.tool_calls[0].file_search.results
                       and run_step.step_details.tool_calls[0].file_search.results[0].content
                       and len(run_step.step_details.tool_calls[0].file_search.results[0].content) > 0):
                       found_text = run_step.step_details.tool_calls[0].file_search.results[0].content[0].text

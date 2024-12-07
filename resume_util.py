@@ -88,6 +88,13 @@ def resume_search_cont(prompt : str,assistant_message : str,assistant : object,t
     # clearing the prompt 
     cleared_prompt = ""
     return result ,assistant,thread,chat_history,cleared_prompt
+  
+def find_selected_resume(annotations : list)->str : 
+  for anno in annotations:
+    if isinstance(anno,BaseModel):
+      fields_dict = anno.model_dump()    
+  
+  return fields_dict
 
 def resume_search_store(prompt,chat_history):
     logging.info(f"resume search complete store :{prompt}")

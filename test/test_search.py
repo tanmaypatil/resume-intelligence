@@ -5,6 +5,7 @@ from vector_store_util import *
 import os,openai 
 from dotenv import load_dotenv
 from file_search import *
+from file_id_name import * 
 
 load_dotenv()
 key = os.getenv("OPENAI_KEY")
@@ -113,13 +114,16 @@ def test_against_noupload_annotate():
     # get instructions
     instructions,_ = get_instruction_useid('readall_pdf')
     # set the prompt
-    prompt = 'amongst all resumes available, which candidate ( provide name) is more suitable as a engineering manager for software engineering'
+    prompt = 'amongst all resumes available, which candidate ( provide name) is more suitable as a engineering manager for software engineering considering team management and software skills'
     assistant_message = None
     # query 
     assistant_output,annotations,found_text,assistant,thread = search_v2([store_id],prompt,instructions,assistant_message)
     print(assistant_output)
     print(f'Annotation : {annotations}')
     print(f'found_text  : {found_text}')
+    if annotations:
+        fields_dict = find_selected_resume(annotations)
+        print( f"fields_dict {fields_dict}")
     
 def test_against_noupload1_annotate():
     # search vector store first.
@@ -177,6 +181,18 @@ def test_against_allfiles_chunksize600():
     print(assistant_output)
     print(f'Annotation : {annotations}')
     print(f'found_text  : {found_text}')
+    
+def test_extract_filename():
+    file_dict = {'end_index': 726, 'file_citation': {'file_id': 'file-CzdfR52iCB2531GHBm992P'},
+                 'start_index': 714, 'text': '【4:0†source】', 'type': 'file_citation'}
+    file_id = file_dict['file_citation']['file_id']
+    print(file_id)
+
+def test_get_pdf_name():
+    pdf_name =get_file_name("file-CzdfR52iCB2531GHBm992P")
+    print(f"pdf name : {pdf_name}")
+    assert(pdf_name == 'Rajesh_Kumar.pdf')
+    
 
 
 
