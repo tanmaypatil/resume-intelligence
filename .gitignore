@@ -10,6 +10,7 @@ __pycache__/
 resume/
 resumes_temp/
 resumes/
+resumes_highlighted/
 
 # C extensions
 *.so
