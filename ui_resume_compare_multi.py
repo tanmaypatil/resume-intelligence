@@ -12,13 +12,14 @@ import os
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(filename)s:%(lineno)d - %(message)s')
 
 def search_resume_store(prompt,chatbot):
-  result ,assistant,thread,chat_history,cleared_prompt,found_text= resume_search_store(prompt,chatbot)
-  #logging.info('try to highlight')
-  #if ( found_text and len(found_text) > 0):
-  #  partial_text = found_text[0:90]
-  #  logging.info( f"partial text for highlighting {partial_text}")
-  #  highlight_text(pdf_path=".\\resumes\\Rajesh_Kumar.pdf",search_text=partial_text,output_path=".\\resumes_highlighted\\highlighted_temp.pdf",exact_match=True)
-  return result ,assistant,thread,chat_history,cleared_prompt,found_text   
+  result ,assistant,thread,chat_history,cleared_prompt,found_text,annotations= resume_search_store(prompt,chatbot)
+  if annotations:
+    pdf_name = find_selected_resume(annotations)
+    gr.Info(f"Resume selected : {pdf_name}")
+    pdf_name = f".\\resumes\\{pdf_name}"
+    image_arr = convert_image(pdf_name)
+      
+  return result ,assistant,thread,chat_history,cleared_prompt,image_arr   
   
 def clean_docs(image_gallery :list ):
   if image_gallery:
@@ -79,7 +80,7 @@ with gr.Blocks(theme=gr.themes.Soft()) as demo:
       list_gallery = [ ( '.\\resumes\\' + l,'.\\resumes\\' + l.removesuffix("_thumbnail.png") + '.pdf') for l in list ]
 
       gallery = gr.Gallery( value = list_gallery,height=150,rows=1,columns=7,selected_index=0,label="Resumes",interactive=False,elem_id="resume_thumbnail" )    
-      resume = gr.Gallery(label='Resume Browser')
+      resume = gr.Gallery(label='Selected Resume/Resume Browser')
       # handler to display resume 
       def on_select( evt : gr.SelectData,second):
         print(type(evt))
@@ -92,7 +93,8 @@ with gr.Blocks(theme=gr.themes.Soft()) as demo:
     with gr.Row(equal_height=False):
       prompt = gr.Textbox(
             label="prompt",
-            info="Enter search query",
+            info="Enter resume search query",
+            placeholder="Enter resume search query",
             lines=3,
             value="  ",
             interactive=True
@@ -111,7 +113,7 @@ with gr.Blocks(theme=gr.themes.Soft()) as demo:
       # event handler for clearing documents
     clr_all.click(fn=clean_docs,inputs=[gallery],outputs=[gallery,resume])
     # event handler for querying resume file store
-    query.click(fn=search_resume_store,inputs=[prompt,chatbot],outputs=[assistant_message,assistant,thread,chatbot,prompt,found_text])
+    query.click(fn=search_resume_store,inputs=[prompt,chatbot],outputs=[assistant_message,assistant,thread,chatbot,prompt,resume])
     
     
 

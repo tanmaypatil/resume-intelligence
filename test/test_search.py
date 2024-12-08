@@ -189,7 +189,7 @@ def test_extract_filename():
     print(file_id)
 
 def test_get_pdf_name():
-    pdf_name =get_file_name("file-CzdfR52iCB2531GHBm992P")
+    pdf_name =get_file_name_useid("file-CzdfR52iCB2531GHBm992P")
     print(f"pdf name : {pdf_name}")
     assert(pdf_name == 'Rajesh_Kumar.pdf')
     

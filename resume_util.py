@@ -7,6 +7,7 @@ from vector_store_util import *
 import logging
 import cairosvg
 import gradio as gr
+from file_id_name import * 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(filename)s:%(lineno)d - %(message)s')
 
 def parse_bool(value):
@@ -90,11 +91,20 @@ def resume_search_cont(prompt : str,assistant_message : str,assistant : object,t
     return result ,assistant,thread,chat_history,cleared_prompt
   
 def find_selected_resume(annotations : list)->str : 
+  file_name = None
+  file_arr = []
   for anno in annotations:
     if isinstance(anno,BaseModel):
-      fields_dict = anno.model_dump()    
-  
-  return fields_dict
+       anno_dict = anno.model_dump()  
+       file_id = anno_dict['file_citation']['file_id'] 
+       logging.info(f"annotated file_id  {file_id}") 
+       file_name = get_file_name_useid(file_id)
+       logging.info(f"post lookup selected file_name  {file_name}")
+       file_arr.append(file_name)
+  if(len(file_arr) > 0 ):
+    file_name = file_arr[0]     
+  logging.info(f"final selected file_name  {file_name}")
+  return file_name
 
 def resume_search_store(prompt,chat_history):
     logging.info(f"resume search complete store :{prompt}")
@@ -123,7 +133,7 @@ def resume_search_store(prompt,chat_history):
     chat_history.append({"role": "assistant", "content": result})
      # clearing the prompt 
     cleared_prompt = ""
-    return result ,assistant,thread,chat_history,cleared_prompt,found_text
+    return result ,assistant,thread,chat_history,cleared_prompt,found_text,annotations
 
 
   

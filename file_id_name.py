@@ -1,6 +1,6 @@
 
 import json 
-def get_file_name(file_id):
+def get_file_name_useid(file_id):
     with open('.\\system_config\\file_ids.json') as file:
         file_arr = json.load(file)
     files = [item for item in file_arr if item["file_id"] == file_id]
