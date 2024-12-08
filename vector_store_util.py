@@ -3,6 +3,8 @@ from typing import List
 import logging
 import os
 from dotenv import load_dotenv
+import json
+
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s - %(levelname)s - %(filename)s:%(lineno)d - %(message)s')
 
@@ -42,23 +44,34 @@ def search_vector_store(store_name: str):
     else:
         return 0, None, None
 
+def store_mapping(file_arr : list):
+    with open('.\\system_config\\file_ids.json', 'w') as f:
+      json.dump(file_arr, f)
 
 def add_files_instore(vector_store: object, files: List[str], base_path='.\\resumes', max_chunk_size_tokens :int =800,
                       chunk_overlap_tokens :int =400):
     """Add files into a existing vector store"""
+    file_dict = {}
+    file_arr = []
     try:
         # Adding a files into existing store
         logging.info(
             f"Adding file into a existing store id :{vector_store.id}")
         # Upload files and add them to the vector store
         file_ids = []
+        
         for file_path in files:
             file_path = f'{base_path}\\{file_path}'
             with open(file_path, "rb") as file:
                 logging.info(f"Adding file  : {file_path}")
+                file_dict = {}
                 uploaded_file = client.files.create(
                     file=file, purpose="assistants")
                 file_ids.append(uploaded_file.id)
+                # add the mapping of file path and file id
+                file_dict["file_id"] = uploaded_file.id
+                file_dict["pdf_name"] = file_path
+                file_arr.append(file_dict)
                 logging.info(
                     f"Adding file  : {file_path} , file id : {uploaded_file.id}")
 
@@ -80,6 +93,9 @@ def add_files_instore(vector_store: object, files: List[str], base_path='.\\resu
         logging.info(f"Added {len(file_ids)} files to the vector store.")
         logging.info(f"File batch status: {file_batch.status}")
         logging.debug(f"File counts: {file_batch.file_counts}")
+        
+        # store the file id , file path mapping in json file
+        store_mapping(file_arr)
         return vector_store.id
     except Exception as e:
         logging.error(f"An error occurred: {str(e)}")

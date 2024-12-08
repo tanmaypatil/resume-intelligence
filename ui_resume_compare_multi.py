@@ -16,7 +16,7 @@ def search_resume_store(prompt,chatbot):
   if annotations:
     pdf_name = find_selected_resume(annotations)
     gr.Info(f"Resume selected : {pdf_name}")
-    pdf_name = f".\\resumes\\{pdf_name}"
+    #pdf_name = f".\\resumes\\{pdf_name}"
     image_arr = convert_image(pdf_name)
       
   return result ,assistant,thread,chat_history,cleared_prompt,image_arr   
