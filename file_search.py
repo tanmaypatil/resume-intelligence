@@ -155,9 +155,14 @@ def search_v2(vector_store_names: List[str], user_input: str, instructions: str,
     assistant_output,annotations,found_text = search_with_query(user_input,assistant_message,assistant,thread)
     return (assistant_output,annotations,found_text,assistant,thread)
 
-def search_v2_cont(user_input:str,assistant_message:str,assistant:object,thread:object )->list:
+def search_v2_cont(user_input:str,assistant_message:str,assistant:object,thread:object )->tuple[list[str],list,str,object,object]:
+    """ 
+      Difference between search_v2 and search_v2_cont is that for search_v2 will construct assistant 
+      and search_v2_cont will use the passed assistant object.
+    """
+    
     assistant_output,annotations,found_text = search_with_query(user_input,assistant_message,assistant,thread)
-    return assistant_output
+    return assistant_output,annotations,found_text,assistant,thread
 
 
 def create_assistant(instructions: str, vector_store_names: list):

@@ -69,6 +69,14 @@ def resume_search(resume1,resume2,prompt,chat_history):
      # clearing the prompt 
     cleared_prompt = ""
     return result ,assistant,thread,chat_history,cleared_prompt
+
+def get_text(item):
+    if isinstance(item, list):
+        return ", ".join(str(x) for x in item)
+    elif isinstance(item, BaseModel):  # For FileCitationAnnotation objects
+        return pformat(item.model_dump(), indent=2, width=120)
+    else:
+        return str(item)
   
 def resume_search_cont(prompt : str,assistant_message : str,assistant : object,thread : object ,chat_history : object):
     logging.info("resume_search_cont prompt - 50 chars {prompt[0:50]}")
@@ -81,14 +89,14 @@ def resume_search_cont(prompt : str,assistant_message : str,assistant : object,t
     # check if store exists , if not skip creation
        logging.info(f"search error, vector store : {vector_store_str} not found")
     else :
-      assistant_output =search_v2_cont(prompt,assistant_message,assistant,thread) 
-      result = "\n".join(assistant_output)
+      assistant_output,annotations,found_text,assistant,thread =search_v2_cont(prompt,assistant_message,assistant,thread) 
+      result = "\n".join(get_text(item) for item in assistant_output)
   
     chat_history.append({"role": "user", "content": prompt})
     chat_history.append({"role": "assistant", "content": result})
     # clearing the prompt 
     cleared_prompt = ""
-    return result ,assistant,thread,chat_history,cleared_prompt
+    return result ,assistant,thread,chat_history,cleared_prompt,found_text,annotations
   
 def find_selected_resume(annotations : list)->str : 
   file_name = None
