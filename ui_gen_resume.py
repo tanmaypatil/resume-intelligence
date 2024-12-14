@@ -8,6 +8,7 @@ from resume_util import *
 import logging
 from PIL import Image
 from ResumeModel import *
+import random
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -72,7 +73,9 @@ def get_default_prompt():
         json_data = json.load(file)
     
       if json_data is not None:
-        default_prompt = json_data[0]['prompt']
+        prompt_len = len(json_data)
+        index = random.randint(0,prompt_len-1)
+        default_prompt = json_data[index]['prompt']
         logging.info(f'Default prompt {default_prompt}')
       return default_prompt
         

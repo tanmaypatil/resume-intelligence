@@ -22,5 +22,13 @@
 {
     "persona" : "Database administrator",
     "prompt" : "The candidate is 28  years old, has 7  years of experience in IT and has experience in database administration of large oracle databases . He has extensive experience in backup,  recovery , security partitioning , managing disks .  Candidate has lot of experience in application space , tuning queries , index creation and suggestions .  Candidate has experience in noSQL databases such as MongoDB , cassandra etc . He has mostly worked in large captives centres of   citibank , goldman sachs , barclays"
+},
+{
+    "persona" : "sofware quality analyst",
+    "prompt" : "Candidate is software quality engineer . She has around 9 years of experience in manual and automation testing in banking and finance applications . Aware of full cycle of testing including integration , end to end . Has good knowledge of banking as domain and understands deeply core banking , payments , lending functionality . Has extensive experience of automation frameworks like tosca ,  selenium , junit . Has knowledge of performance testing and performance tools such as jmeter . She has mostly worked in product companies such as oracle flexcube, infosys finacle , avalara. She is from Calicut india and has done engineering from calicut."
+},
+{
+    "persona" : "sofware architect",
+    "prompt" : "Candidate name is Rohan srivastava . He is software architect . Has around 19 years of industry experience . Last few years candidate is working as software technical architect driving modernisation from legacy application to cloud native scalable application on modern technologies . As extensive  knowledge of software design and integration patterns which are used in application development . Candidate is well versed with various aspect of architecure such as security , scalability , data protection, customisation ,localisation . Prior to working as architecture , candidate started working as software developer , rose through to principle software engineer and then architect . Mostly worked in software product companies such as backbase , intellect design arena , temenos etc . Candidate resides in bangalore and studied engineering in bangalore"
 }
 ]
