@@ -48,8 +48,8 @@ Some of the query , which it should allow you to fire are
 ```bash
    python ui_resume_compare2.py
 ```
-## Demo
-![Demo](demo.gif)
+## User interface
+![Demo](demo.png)
 
 ## Approaches
 Here i use RAG approaches 
