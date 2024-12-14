@@ -22,7 +22,7 @@ Some of the query , which it should allow you to fire are
 ```bash
    # Install python packages locally.
    pip install -r requirements.txt
-   python ui_show_resume.py
+   python ui_gen_resume.py
 ```
 
 ## How to run 
@@ -46,7 +46,7 @@ Some of the query , which it should allow you to fire are
 
 ``` 
 ```bash
-   python ui_resume_compare2.py
+   python ui_resume_compare_multi.py
 ```
 ## User interface
 ![Demo](demo.png)
