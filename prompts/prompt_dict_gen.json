@@ -18,5 +18,9 @@
 {
     "persona" : "product owner",
     "prompt" : "The candidate is 24 years management graduate out of MBA institute. Has mostly internship experience of 1 year in ICICI bank. Has knowledge of relationship banking"
+},
+{
+    "persona" : "Database administrator",
+    "prompt" : "The candidate is 28  years old, has 7  years of experience in IT and has experience in database administration of large oracle databases . He has extensive experience in backup,  recovery , security partitioning , managing disks .  Candidate has lot of experience in application space , tuning queries , index creation and suggestions .  Candidate has experience in noSQL databases such as MongoDB , cassandra etc . He has mostly worked in large captives centres of   citibank , goldman sachs , barclays"
 }
 ]

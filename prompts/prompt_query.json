@@ -2,6 +2,6 @@
     {   
         "persona" : "devops engineer",
         "prompt1" :  "Given the resume to which you have access , who would be the best candidates for devops engineer working on amazon web Services , provisioning and maintaining IAM",
-        "follow up-1" : "Can Arjun Patel do a DBA work , such as database recovery of oracle"
+        "follow up-1" : "Can Arjun Patel do a DBA work , such as database recovery of oracle ,if not can you suggest a candidate whose resume you have access to "
     }
 ]

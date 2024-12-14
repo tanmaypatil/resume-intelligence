@@ -68,7 +68,7 @@ def generate_resume_pdf(input_prompt,resume_path):
       return images,resume.name
     
 def get_default_prompt():
-      with open('.\\system_config\\prompt_dict.json') as file:
+      with open('.\\prompts\\prompt_dict_gen.json') as file:
         json_data = json.load(file)
     
       if json_data is not None:
