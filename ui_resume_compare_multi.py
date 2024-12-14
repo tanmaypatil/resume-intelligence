@@ -17,10 +17,12 @@ def search_resume_store(prompt,chatbot,query):
   if annotations:
     pdf_name = find_selected_resume(annotations)
     gr.Info(f"Resume selected : {pdf_name}")
-    #pdf_name = f".\\resumes\\{pdf_name}"
     image_arr = convert_image(pdf_name)
+  
+  hide_query = gr.update(visible=False)
+  visible_submit = gr.update(visible=True)
       
-  return result ,assistant,thread,chat_history,cleared_prompt,image_arr  
+  return result ,assistant,thread,chat_history,cleared_prompt,image_arr,hide_query,visible_submit
 
 def search_resume_cont(prompt : str,chatbot : object ,assistant_message : str,assistant : object,thread : object ):
   """ continue the conversation - this will funnel back the assistant response back"""
@@ -115,7 +117,7 @@ with gr.Blocks(theme=gr.themes.Soft()) as demo:
       chatbot = gr.Chatbot(type="messages", label="Resume intelligence",avatar_images=("resume_user.png","resume_search.png"))
     with gr.Row():
       query = gr.Button(value="query", variant='primary',elem_id="query",scale=0)
-      submit = gr.Button(value="submit", variant='primary',elem_id="submit",scale=0)
+      submit = gr.Button(value="submit", visible=False,variant='primary',elem_id="submit",scale=0)
       upd_all = gr.Button("upload all",variant='secondary',elem_id="upd_all",scale=0)
       clr_all = gr.Button("clear all",variant='secondary',elem_id="clr_all",scale=0)
       
@@ -127,7 +129,7 @@ with gr.Blocks(theme=gr.themes.Soft()) as demo:
       # event handler for clearing documents
     clr_all.click(fn=clean_docs,inputs=[gallery],outputs=[gallery,resume])
     # event handler for querying resume file store
-    query.click(fn=search_resume_store,inputs=[prompt,chatbot,query],outputs=[assistant_message,assistant,thread,chatbot,prompt,resume])
+    query.click(fn=search_resume_store,inputs=[prompt,chatbot,query],outputs=[assistant_message,assistant,thread,chatbot,prompt,resume,query,submit])
     # hook the event handler for continue chatting 
     submit.click(fn=search_resume_cont,inputs=[prompt,chatbot,assistant_message,assistant,thread],outputs=[assistant_message,assistant,thread,chatbot,prompt,resume])
     
