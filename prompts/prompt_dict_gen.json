@@ -38,5 +38,9 @@
 {
     "persona" : "Principle software engineer",
     "prompt" : "Candidate is a principle software engineer . Her name is  Kavya Iyer . She Has total years of experience is 16 years . She has extensive knowledge in software design , algorithms and data structures and databases both relational and non relational databases such as dynamodb , cassandra . Very skilled in programming in multiple languages  such as c,c++ ,java , node.js , python . He is aware of machine learning  , deep learning using pytorch and keras library . He has good knowledge of gen.ai and both open and closed source models such as lama , claude , openai .  mentors 3 or 4 developers and senior engineers . Mostly worked in india and in IT department of FMCG companies such as Hindustan lever , ITC , Reliance .  Studied in Tamilnadu in chennai city."
+},
+{
+    "persona" : "Manual software tester",
+    "prompt" : "Candidate is software quality engineer . She has around 9 years of experience in manual and automation testing in banking and finance applications . Aware of full cycle of testing including integration , end to end . Has good knowledge of banking as domain and understands deeply core banking , payments , lending functionality . Has extensive experience of automation frameworks like tosca ,  selenium , junit . Has knowledge of performance testing and performance tools such as jmeter . She has mostly worked in product companies such as oracle flexcube, infosys finacle , avalara. She is from Calicut india and has done engineering from calicut."
 }
 ]
