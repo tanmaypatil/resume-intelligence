@@ -68,7 +68,7 @@ functions = [
                             },
                             "duration": {
                                 "type": "string",
-                                "description": "Duration of employment"
+                                "description": "Duration of employment in start year-end year format"
                             },
                             "achievements": {
                                 "type": "array",
@@ -161,7 +161,8 @@ def generate_resume(description, use_turbo=False):
                     "role": "system",
                     "content": """You are an expert resume writer. Generate a detailed professional 
                     resume based on the provided description. Focus on creating realistic and 
-                    relevant content that matches the candidate's experience level."""
+                    relevant content that matches the candidate's experience level. 
+                    Always generate the name of the candidate with indian nationality and generate email if not given ,do not leave it as N/A"""
                 },
                 {
                     "role": "user",

@@ -12,7 +12,6 @@ from ResumeModel import *
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
-
 def generate_resume_json(input_prompt):
       """Function to generate a resume in json format"""
       resume_json = generate_resume(input_prompt)
