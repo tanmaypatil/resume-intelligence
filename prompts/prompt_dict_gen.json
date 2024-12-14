@@ -36,7 +36,7 @@
     "prompt" : "Candidate is scrum master . Name is Subhash awasthi . He Has 15 years of total IT  Currently working as scrum master in software company for guiding scrum teams to adopt agile practices and become productive . Experienced in kanban, scrum , safe and many other agile frameworks .  Prior to working as scrum master ,  he was working as business analyst and early in the career , he was a software developer. He has mostly worked in Indian software companies like cognizant , wipro ,tech mahindra ,infosys."
 },
 {
-    "persona" : "Senior software engineer",
-    "prompt" : "Candidate is scrum master . Name is Subhash awasthi . He Has 15 years of total IT  Currently working as scrum master in software company for guiding scrum teams to adopt agile practices and become productive . Experienced in kanban, scrum , safe and many other agile frameworks .  Prior to working as scrum master ,  he was working as business analyst and early in the career , he was a software developer. He has mostly worked in Indian software companies like cognizant , wipro ,tech mahindra ,infosys."
+    "persona" : "Principle software engineer",
+    "prompt" : "Candidate is a principle software engineer . Her name is  Kavya Iyer . She Has total years of experience is 16 years . She has extensive knowledge in software design , algorithms and data structures and databases both relational and non relational databases such as dynamodb , cassandra . Very skilled in programming in multiple languages  such as c,c++ ,java , node.js , python . He is aware of machine learning  , deep learning using pytorch and keras library . He has good knowledge of gen.ai and both open and closed source models such as lama , claude , openai .  mentors 3 or 4 developers and senior engineers . Mostly worked in india and in IT department of FMCG companies such as Hindustan lever , ITC , Reliance .  Studied in Tamilnadu in chennai city."
 }
 ]
