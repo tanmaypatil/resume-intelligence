@@ -68,7 +68,7 @@ Here i use RAG approaches
 This is a straightforward approach .I use openai apis to create a vector store and add all pdf documents to vector store . post that create a assistant and attach vector store to assistant 
 
 ### concatenation of files - not required
-openai file search , seems to be not working well , for queries which is touching multiple documents . Initial solution seems to be concatenate the files . However this was incorrect understanding on how to present instructions to model 
+openai file search , seems to be not working well in earlier experiments, for queries which is touching multiple documents . Initial solution seems to be concatenate the files and upload in vector store . However this was incorrect understanding on how to present instructions to model 
 
 To improve the response , it advertently means that , instructions or system prompt has to be adjusted so that , you get correct results . Here is mine and i am imploring the model to do correct search .
 
