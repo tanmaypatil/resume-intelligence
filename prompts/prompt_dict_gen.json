@@ -33,6 +33,10 @@
 },
 {
     "persona" : "Scrum master",
-    "prompt" : "Candidate name is Rohan srivastava . He is software architect . Has around 19 years of industry experience . Last few years candidate is working as software technical architect driving modernisation from legacy application to cloud native scalable application on modern technologies . As extensive  knowledge of software design and integration patterns which are used in application development . Candidate is well versed with various aspect of architecure such as security , scalability , data protection, customisation ,localisation . Prior to working as architecture , candidate started working as software developer , rose through to principle software engineer and then architect . Mostly worked in software product companies such as backbase , intellect design arena , temenos etc . Candidate resides in bangalore and studied engineering in bangalore"
+    "prompt" : "Candidate is scrum master . Name is Subhash awasthi . He Has 15 years of total IT  Currently working as scrum master in software company for guiding scrum teams to adopt agile practices and become productive . Experienced in kanban, scrum , safe and many other agile frameworks .  Prior to working as scrum master ,  he was working as business analyst and early in the career , he was a software developer. He has mostly worked in Indian software companies like cognizant , wipro ,tech mahindra ,infosys."
+},
+{
+    "persona" : "Senior software engineer",
+    "prompt" : "Candidate is scrum master . Name is Subhash awasthi . He Has 15 years of total IT  Currently working as scrum master in software company for guiding scrum teams to adopt agile practices and become productive . Experienced in kanban, scrum , safe and many other agile frameworks .  Prior to working as scrum master ,  he was working as business analyst and early in the career , he was a software developer. He has mostly worked in Indian software companies like cognizant , wipro ,tech mahindra ,infosys."
 }
 ]
